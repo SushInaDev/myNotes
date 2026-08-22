@@ -441,11 +441,19 @@
   .court-box li{margin-bottom:6px;opacity:.95;}
 
   /* Data table */
+  .table-wrap{
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    margin:14px 0 8px;
+  }
   table.data{
     width:100%;
+    min-width:520px;
     border-collapse:collapse;
-    margin:14px 0 8px;
+    margin:0;
     font-size:14.5px;
+    table-layout:fixed;
   }
   table.data caption{
     text-align:left;
@@ -455,6 +463,7 @@
     text-transform:uppercase;
     color:var(--brass);
     margin-bottom:10px;
+    white-space:normal;
   }
   table.data th{
     background:var(--navy);
@@ -471,6 +480,9 @@
     padding:12px 14px;
     border-bottom:1px solid var(--line);
     vertical-align:top;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
+    hyphens:auto;
   }
   table.data tr:nth-child(even) td{background:rgba(169,120,31,0.06);}
   table.data td.num{
@@ -478,8 +490,19 @@
     color:var(--oxblood);
     font-weight:600;
     width:34px;
+    white-space:nowrap;
   }
-  table.data td.feat{font-weight:600;color:var(--navy);white-space:nowrap;}
+  table.data td.feat{font-weight:600;color:var(--navy);white-space:normal;}
+
+  @media(max-width:900px){
+    table.data{font-size:13.5px;}
+    table.data th, table.data td{padding:9px 10px;}
+  }
+  @media(max-width:640px){
+    table.data{font-size:13px;min-width:460px;}
+    table.data th, table.data td{padding:8px 8px;}
+    table.data caption{font-size:10.5px;}
+  }
 
   /* Practice question card */
   .quiz{
@@ -1218,8 +1241,10 @@
 
     <div class="mnemonic">J·E·L → Separation of Judicial, Executive &amp; Legislative functions begins here</div>
 
+    <div class="table-wrap">
     <table class="data">
       <caption>Key features of the Charter Act, 1853</caption>
+      <colgroup><col style="width:34px;"><col style="width:32%;"><col></colgroup>
       <thead>
         <tr><th style="width:36px;">#</th><th>Feature</th><th>Key Provision</th></tr>
       </thead>
@@ -1233,6 +1258,7 @@
         <tr><td class="num">7</td><td class="feat">New Presidency</td><td>Provided for the appointment of a separate <b>Governor for the Bengal Presidency</b>, relieving the Governor-General of administrative duties in Bengal.</td></tr>
       </tbody>
     </table>
+    </div>
   </section>
 
   <!-- ============ GOVERNMENT OF INDIA ACT 1858 ============ -->
@@ -1394,6 +1420,7 @@
     </ul>
 
     <h3 class="sub-head">Provincial Legislative Councils — Strength</h3>
+    <div class="table-wrap">
     <table class="data">
       <thead><tr><th>Presidency / Province</th><th>Members</th></tr></thead>
       <tbody>
@@ -1404,6 +1431,7 @@
         <tr><td class="feat">Oudh</td><td>15 members</td></tr>
       </tbody>
     </table>
+    </div>
     <p style="font-size:14.5px;color:var(--ink-soft);margin-top:8px;"><b>Central Legislative Council:</b> the number of members in the Governor-General's Legislative Council was increased — it could now have a <b>minimum of 10</b> and <b>maximum of 16</b> members.</p>
 
     <div class="quiz">
@@ -1520,14 +1548,17 @@
       <li><b>Bicameral Legislature:</b> for the first time, a two-house legislature was introduced at the centre.</li>
     </ul>
 
+    <div class="table-wrap">
     <table class="data">
       <caption>Central Legislature under the Act of 1919</caption>
+      <colgroup><col style="width:22%;"><col style="width:14%;"><col><col style="width:14%;"></colgroup>
       <thead><tr><th>House</th><th>Members</th><th>Composition</th><th>Term</th></tr></thead>
       <tbody>
         <tr><td class="feat">Lower House — Legislative Assembly</td><td>145</td><td>41 nominated + 104 elected</td><td>3 years</td></tr>
         <tr><td class="feat">Upper House — Council of State</td><td>60 (male only)</td><td>26 nominated + 34 elected (20 general, 10 Muslims, 3 Europeans, 1 Sikh)</td><td>5 years</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h3 class="sub-head">Rights of Legislators &amp; Electoral Provisions</h3>
     <div class="two-col">
@@ -1611,7 +1642,9 @@
     </ul>
 
     <h3 class="sub-head">Division of Powers — Three Lists</h3>
+    <div class="table-wrap">
     <table class="data">
+      <colgroup><col style="width:16%;"><col style="width:20%;"><col></colgroup>
       <thead><tr><th>List</th><th>Controlled By</th><th>Included subjects</th></tr></thead>
       <tbody>
         <tr><td class="feat">Federal List</td><td>Centre</td><td>Defence, foreign affairs, communications</td></tr>
@@ -1619,6 +1652,7 @@
         <tr><td class="feat">Concurrent List</td><td>Centre &amp; Provinces (shared)</td><td>Criminal law, marriage, other common subjects</td></tr>
       </tbody>
     </table>
+    </div>
     <p style="font-size:14.5px;color:var(--ink-soft);margin-top:8px;">Subjects not mentioned in any list remained under the <b>Governor-General</b> (residual powers).</p>
 
     <h3 class="sub-head">Provincial Autonomy &amp; Structural Changes</h3>
@@ -1781,8 +1815,10 @@
       <div class="mnode"><div class="mdot">10</div><div class="mlbl">Oct '49</div></div>
       <div class="mnode"><div class="mdot">11</div><div class="mlbl">Nov '49</div></div>
     </div>
+    <div class="table-wrap">
     <table class="data">
       <caption>Total sessions: 11 · Total sittings: 165 days</caption>
+      <colgroup><col style="width:34px;"><col style="width:34%;"><col></colgroup>
       <thead><tr><th style="width:36px;">#</th><th>Session</th><th>Dates</th></tr></thead>
       <tbody>
         <tr><td class="num">1</td><td class="feat">First Session</td><td>9–23 December 1946</td></tr>
@@ -1798,6 +1834,7 @@
         <tr><td class="num">11</td><td class="feat">Eleventh Session</td><td>14–26 November 1949</td></tr>
       </tbody>
     </table>
+    </div>
     <p style="font-size:14.5px;color:var(--ink-soft);margin-top:4px;">Members <b>signed the Constitution on 24 January 1950</b>. The <b>Draft Constitution</b> was completed in almost 3 years (2 years, 11 months and 18 days) — <b>drafted on 26 November 1949</b>; the Constitution <b>commenced on 26 January 1950</b>.</p>
 
     <h3 class="sub-head">Women Members of the Constituent Assembly</h3>
@@ -1866,8 +1903,10 @@
         <text x="470" y="192" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#3a3f52">Excluded Areas · &amp; more (see table)</text>
       </svg>
     </div>
+    <div class="table-wrap">
     <table class="data">
       <caption>The eight major committees</caption>
+      <colgroup><col style="width:34px;"><col style="width:56%;"><col></colgroup>
       <thead><tr><th style="width:26px;">#</th><th>Committee</th><th>Chairperson</th></tr></thead>
       <tbody>
         <tr><td class="num">a</td><td class="feat">Union Powers Committee</td><td>Jawaharlal Nehru</td></tr>
@@ -1880,10 +1919,13 @@
         <tr><td class="num">h</td><td class="feat">Advisory Committee on Fundamental Rights, Minorities and Tribal and Excluded Areas</td><td>Sardar Vallabhbhai Patel</td></tr>
       </tbody>
     </table>
+    </div>
 
     <h3 class="sub-head">Minor Committees</h3>
+    <div class="table-wrap">
     <table class="data">
       <caption>As listed across the classroom notes (23 minor/ad-hoc committees &amp; sub-committees)</caption>
+      <colgroup><col style="width:34px;"><col style="width:54%;"><col></colgroup>
       <thead><tr><th style="width:26px;">#</th><th>Committee</th><th>Chairperson</th></tr></thead>
       <tbody>
         <tr><td class="num">1</td><td class="feat">Finance and Staff Committee</td><td>Dr. Rajendra Prasad</td></tr>
@@ -1911,6 +1953,7 @@
         <tr><td class="num">23</td><td class="feat">States Committee, Union Constitution Committee &amp; Union Powers Committee</td><td>Jawaharlal Nehru</td></tr>
       </tbody>
     </table>
+    </div>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:4px;">Note: the classroom slides list the <b>"Special Committee to Examine the Draft Constitution"</b> twice with two different chairpersons (Jawaharlal Nehru in one slide, Alladi Krishnaswami Ayyar in another) — both entries are reproduced above exactly as given in the source notes.</p>
 
     <h3 class="sub-head">Drafting Committee</h3>
@@ -2197,6 +2240,7 @@
       </svg>
     </div>
 
+    <div class="table-wrap">
     <table class="data">
       <caption>Country / source → borrowed features</caption>
       <thead><tr><th style="width:190px;">Source</th><th>Borrowed Features</th></tr></thead>
@@ -2215,6 +2259,7 @@
         <tr><td class="feat">Japanese Constitution</td><td>Procedure established by Law.</td></tr>
       </tbody>
     </table>
+    </div>
 
     <div class="quiz">
       <div class="qtop"><span class="qnum">Q28</span><span class="exam-tag">SSC CHSL</span></div>
@@ -2401,8 +2446,10 @@
     </div>
 
     <h3 class="sub-head">How Scholars Have Described Indian Federalism</h3>
+    <div class="table-wrap">
     <table class="data">
       <caption>Historian / scholar → famous statement</caption>
+      <colgroup><col style="width:22%;"><col style="width:38%;"><col></colgroup>
       <thead><tr><th style="width:150px;">Historian / Scholar</th><th>Famous Statement / Description</th><th>Key Concept</th></tr></thead>
       <tbody>
         <tr><td class="feat">K.C. Wheare</td><td>"India is a Quasi-federal state."</td><td>It is a unitary state with subsidiary federal features rather than a federal state with subsidiary unitary features.</td></tr>
@@ -2414,6 +2461,7 @@
         <tr><td class="feat">Alexandrowicz</td><td>"India is a Federation sui generis (unique in its own kind)."</td><td>Argued against the 'quasi-federal' label, stating India is a true federation with its own unique characteristics.</td></tr>
       </tbody>
     </table>
+    </div>
 
     <div class="gknote">
       <h4>States &amp; UTs with a Bicameral Legislature</h4>
@@ -2478,6 +2526,7 @@
         <h2>The Full Timeline, at a Glance</h2>
       </div>
     </div>
+    <div class="table-wrap">
     <table class="data">
       <caption>Company Rule — Act-wise one-line recall</caption>
       <thead><tr><th style="width:70px;">Year</th><th>Act</th><th>One-line memory hook</th></tr></thead>
@@ -2498,6 +2547,7 @@
         <tr><td class="feat">1947</td><td>Indian Independence Act</td><td>Mountbatten Plan · Radcliffe Line · Independence on 15 August 1947</td></tr>
       </tbody>
     </table>
+    </div>
   </section>
 
   <footer>
