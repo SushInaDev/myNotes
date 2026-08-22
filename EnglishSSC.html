@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>120 Rules of Grammar — Ultimate Study Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Premium Light Palette Design Tokens */
+    --bg-main: #f8fafc;
+    --bg-sidebar: #ffffff;
+    --bg-card: #ffffff;
+    --bg-card-hover: #f1f5f9;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --text-inverse: #ffffff;
+    
+    --accent: #4f46e5; /* Indigo 600 */
+    --accent-light: rgba(79, 70, 229, 0.08);
+    --green: #059669; /* Rich Green-600 */
+    --green-light: #ecfdf5; /* Soft Green-50 */
+    --red: #dc2626; /* Rich Red-600 */
+    --red-light: #fef2f2; /* Soft Red-50 */
+    --amber: #b45309; /* Rich Amber-700 */
+    --amber-light: #fffbeb; /* Soft Amber-50 */
+    --blue: #1d4ed8; /* Rich Blue-700 */
+    --blue-light: #eff6ff; /* Soft Blue-50 */
+    
+    --border: #e2e8f0; /* Soft gray border */
+    --radius-lg: 16px;
+    --radius-md: 10px;
+    --radius-sm: 6px;
+    
+    --font-heading: 'Plus Jakarta Sans', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  .app { display: flex; min-height: 100vh; }
+
+  /* ===== SIDEBAR (LIGHT FORMAT) ===== */
+  .sidebar {
+    width: 320px;
+    flex-shrink: 0;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    padding: 32px 24px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+  }
+  .sidebar::-webkit-scrollbar { width: 6px; }
+  .sidebar::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.12); border-radius: 3px; }
+
+  .brand-group { display: flex; flex-direction: column; gap: 4px; }
+  .brand { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.02em; }
+  .brand span { color: var(--accent); }
+  .brand-sub { font-size: 0.875rem; color: var(--text-muted); font-weight: 500; }
+
+  .search-wrap { position: relative; }
+  #search {
+    width: 100%;
+    padding: 12px 16px 12px 42px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: #ffffff;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s;
+  }
+  #search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+  .search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; stroke: var(--text-muted); fill: none; }
+
+  /* ===== PROGRESS & NAVIGATION ===== */
+  .progress-container {
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px;
+  }
+  .progress-label { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; }
+  .progress-label span { color: var(--green); }
+  .progress-track { height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--green)); width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  .filter-pills { display: flex; gap: 8px; background: var(--bg-main); padding: 4px; border-radius: var(--radius-md); border: 1px solid var(--border); }
+  .filter-pill { flex: 1; text-align: center; padding: 8px; border-radius: var(--radius-sm); font-size: 0.8rem; font-weight: 600; color: var(--text-muted); cursor: pointer; border: none; background: transparent; transition: all 0.15s; }
+  .filter-pill.active { background: var(--accent); color: var(--text-inverse); }
+
+  #navList { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .nav-link:hover { background: rgba(0, 0, 0, 0.03); color: var(--text-main); }
+  .nav-link.active { background: var(--accent-light); color: var(--accent); font-weight: 600; border-left: 3px solid var(--accent); padding-left: 9px; }
+  .nav-count { font-family: var(--font-mono); font-size: 0.75rem; opacity: 0.6; }
+
+  /* ===== MAIN CONTAINER ===== */
+  main { flex: 1; padding: 48px 56px; max-width: 1040px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 40px; }
+
+  .hero { display: flex; flex-direction: column; gap: 16px; position: relative; }
+  .hero-eyebrow { font-family: var(--font-mono); color: var(--accent); font-size: 0.8rem; letter-spacing: 0.15em; font-weight: 600; text-transform: uppercase; }
+  .hero-title { font-family: var(--font-heading); font-size: 2.8rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; }
+  .hero-title span { background: linear-gradient(to right, #4f46e5, #1d4ed8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-desc { color: var(--text-muted); font-size: 1.1rem; max-width: 720px; line-height: 1.6; }
+  
+  .global-actions { display: flex; gap: 12px; margin-top: 8px; }
+  .action-btn { background: #ffffff; border: 1px solid var(--border); color: var(--text-main); padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .action-btn:hover { background: var(--bg-main); border-color: #cbd5e1; }
+
+  .stat-row { display: flex; gap: 48px; border-top: 1px solid var(--border); padding-top: 24px; margin-top: 8px; }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 800; color: var(--text-main); }
+  .stat-label { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* ===== SECTIONS & CARDS ===== */
+  .section-block { margin-bottom: 32px; scroll-margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
+  .section-head { display: flex; align-items: baseline; gap: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .section-num { font-family: var(--font-mono); color: var(--accent); font-weight: 700; font-size: 1rem; }
+  .section-title { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 800; }
+  .section-range { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-left: auto; background: rgba(0, 0, 0, 0.04); padding: 4px 8px; border-radius: 4px; }
+
+  .cards { display: flex; flex-direction: column; gap: 16px; }
+  .card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+  }
+  .card:hover { border-color: #cbd5e1; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
+  .card.mastered-status { border-left: 4px solid var(--green); }
+  .card.open { background-color: var(--bg-card-hover); border-color: rgba(79, 70, 229, 0.25); }
+  
+  .card-head { display: flex; align-items: center; gap: 16px; padding: 20px 24px; cursor: pointer; user-select: none; }
+  .card-tag { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); background: var(--accent-light); border-radius: var(--radius-sm); padding: 4px 10px; font-weight: 600; border: 1px solid rgba(79, 70, 229, 0.15); }
+  .card.mastered-status .card-tag { color: var(--green); background: var(--green-light); border-color: rgba(5, 150, 105, 0.15); }
+  .card-title { font-weight: 600; font-size: 1.1rem; flex: 1; letter-spacing: -0.01em; color: var(--text-main); }
+  .chevron { font-size: 1.1rem; color: var(--text-muted); transition: transform 0.25s; font-family: var(--font-mono); }
+  .card.open .chevron { transform: rotate(180deg); color: var(--accent); }
+
+  .card-body { display: none; padding: 4px 24px 24px 24px; border-top: 1px solid var(--border); }
+  .card.open .card-body { display: block; }
+
+  /* Text & Highlighter Formatting */
+  .rule-text { color: #334155; font-size: 0.95rem; line-height: 1.7; margin: 12px 0; }
+  .rule-text b, .rule-text strong { color: var(--text-main); font-weight: 600; background: rgba(0, 0, 0, 0.04); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.9rem; }
+
+  /* Example Containers with customized accessibility contrasts */
+  .ex { display: flex; gap: 12px; align-items: flex-start; font-family: var(--font-mono); font-size: 0.88rem; line-height: 1.6; padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid transparent; }
+  .ex.ok { background: var(--green-light); color: #065f46; border-color: rgba(5, 150, 105, 0.2); }
+  .ex.bad { background: var(--red-light); color: #991b1b; border-color: rgba(220, 38, 38, 0.2); }
+  .mark { flex-shrink: 0; font-weight: 700; font-size: 1.1rem; line-height: 1; }
+  .ex.ok .mark { color: var(--green); }
+  .ex.bad .mark { color: var(--red); }
+
+  /* Alert-style Light Format callout boxes */
+  .note-box { background: var(--blue-light); border-left: 4px solid var(--blue); padding: 12px 16px; border-radius: 4px var(--radius-md) var(--radius-md) 4px; font-size: 0.9rem; color: #1e3a8a; margin: 14px 0; line-height: 1.6; }
+  .tip-box { background: var(--amber-light); border-left: 4px solid var(--amber); padding: 12px 16px; border-radius: 4px var(--radius-md) var(--radius-md) 4px; font-size: 0.9rem; color: #78350f; margin: 14px 0; line-height: 1.6; }
+  .word-list { font-family: var(--font-mono); font-size: 0.85rem; color: #1e40af; background: rgba(37, 99, 235, 0.05); padding: 12px 16px; border-radius: var(--radius-md); margin: 14px 0; border: 1px dashed rgba(37, 99, 235, 0.2); line-height: 1.6; }
+
+  /* Reference Tables Formatting */
+  .table-container { background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; margin-top: 12px; margin-bottom: 20px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02); }
+  .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .ref-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem; }
+  .ref-table th { background: #f8fafc; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 12px 16px; border-bottom: 2px solid var(--border); }
+  .ref-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--text-main); line-height: 1.5; vertical-align: middle; }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table code { font-family: var(--font-mono); font-size: 0.82rem; background: rgba(0,0,0,0.04); color: #0f172a; padding: 2px 6px; border-radius: 4px; font-weight: 500; display: inline-block; margin-top: 4px; }
+  .ref-badge { display: inline-block; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; padding: 3px 8px; border-radius: 4px; margin-bottom: 2px; }
+  .ref-badge.direct-tag { background: #fef2f2; color: #991b1b; border: 1px solid rgba(220, 38, 38, 0.15); }
+  .ref-badge.indirect-tag { background: #eff6ff; color: #1e40af; border: 1px solid rgba(37, 99, 235, 0.15); }
+  .ref-badge.active-tag { background: #fffbeb; color: #92400e; border: 1px solid rgba(217, 119, 6, 0.15); }
+  .ref-badge.passive-tag { background: #ecfdf5; color: #065f46; border: 1px solid rgba(16, 185, 129, 0.15); }
+
+  .check-row { display: flex; align-items: center; justify-content: flex-end; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .mastered-btn {
+    font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; cursor: pointer;
+    background: transparent; border: 1px solid #cbd5e1; color: var(--text-main);
+    padding: 8px 16px; border-radius: 30px; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .mastered-btn:hover { border-color: var(--accent); background: var(--accent-light); }
+  .mastered-btn.done { background: var(--green); border-color: var(--green); color: var(--text-inverse); }
+  .mastered-btn.done:hover { background: #047857; border-color: #047857; color: var(--text-inverse); }
+
+  .no-results { font-size: 1.2rem; color: var(--text-muted); text-align: center; padding: 80px 0; font-weight: 500; }
+
+  footer { text-align: center; padding: 64px 0 32px; font-size: 0.9rem; color: var(--text-muted); border-top: 1px solid var(--border); font-family: var(--font-mono); letter-spacing: -0.01em; }
+
+  @media (max-width: 1024px) {
+    .app { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; padding: 24px; gap: 16px; }
+    main { padding: 32px 24px; }
+    .hero-title { font-size: 2.2rem; }
+    .stat-row { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand-group">
+      <div class="brand">120 Rules <span>.</span></div>
+      <div class="brand-sub">Ultimate Grammar Companion ⚡</div>
+    </div>
+
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="search" type="text" placeholder="Search rules, formulas, exceptions...">
+    </div>
+
+    <div class="progress-container">
+      <div class="progress-label">MASTERED <span id="progressCount">0</span> / 120</div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="filter-pills">
+      <button class="filter-pill active" onclick="setFilter('all', this)">All</button>
+      <button class="filter-pill" onclick="setFilter('pending', this)">Pending</button>
+      <button class="filter-pill" onclick="setFilter('mastered', this)">Mastered</button>
+    </div>
+
+    <nav id="navList"></nav>
+  </aside>
+
+  <main>
+    <div class="hero">
+      <div class="hero-eyebrow">English Framework · Academic Master Edition</div>
+      <h1 class="hero-title">Comprehensive <span>120 Grammar Rules</span></h1>
+      <p class="hero-desc">Engineered for competitive sync optimization across high-tier standardized evaluation syllabi. Filter modules dynamically, trace real-time accuracy indexes, and preserve individual session progress indicators seamlessly.</p>
+      
+      <div class="global-actions">
+        <button class="action-btn" onclick="toggleAllCards(true)">Expand All Rules</button>
+        <button class="action-btn" onclick="toggleAllCards(false)">Collapse All Rules</button>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><div class="stat-num">120</div><div class="stat-label">Syntax Core</div></div>
+        <div class="stat"><div class="stat-num">7</div><div class="stat-label font-mono">Structural Divisions</div></div>
+        <div class="stat"><div class="stat-num">240+</div><div class="stat-label">Verified Formats</div></div>
+      </div>
+    </div>
+
+    <div id="sections"></div>
+
+    <footer>Designed for daily syntax retention and evaluation excellence.</footer>
+  </main>
+
+</div>
+
+<script>
+const SECTIONS = [
+  {id:'s1', title:'Pronouns & Determiners', range:'01–10'},
+  {id:'s2', title:'Verbs & Tenses', range:'11–30'},
+  {id:'s3', title:'Adjectives & Adverbs', range:'31–50'},
+  {id:'s4', title:'Nouns & Articles', range:'51–70'},
+  {id:'s5', title:'Conjunctions & Prepositions', range:'71–90'},
+  {id:'s6', title:'Sentence Structure & Special Rules', range:'91–120'},
+  {id:'s7', title:'Conversion Charts & Voice Charts', range:'Reference'},
+];
+
+const ex = (ok, text) => `<div class="ex ${ok?'ok':'bad'}"><span class="mark">${ok?'✓':'✗'}</span><span>${text}</span></div>`;
+const note = t => `<div class="note-box"><strong>NOTE:</strong> ${t}</div>`;
+const tip = t => `<div class="tip-box"><strong>MEMORY TIP:</strong> ${t}</div>`;
+const words = t => `<div class="word-list"><strong>KEY WORD TARGETS:</strong><br>${t}</div>`;
+const p = t => `<p class="rule-text">${t}</p>`;
+
+const RULES = [
+{n:1,s:0,t:"Each vs Every",b:p("Each and Every are always followed by a <b>singular verb</b>. <b>Each</b> is used for 2+ items considered individually; it can be an adjective or a pronoun. <b>Every</b> is used for more than 2, considered as a group; it can only be an adjective, never a pronoun.")
+ +ex(1,"Each student IS very talented.")+ex(1,"Every student IS very talented.")+ex(0,"Every of my students is very talented.")+ex(1,"Each of my students is very talented.")
+ +p("Every can be used with abstract nouns; Each cannot.")+ex(1,"They have every reason to be happy.")+ex(0,"They have each reason to be happy.")
+ +note("\"Each\" can work for exactly 2 items. \"Every\" is only for MORE than 2.")
+ +tip("EVERY = EVERYone together. EACH = one at a time.")},
+
+{n:2,s:0,t:"Both … Not → Use Neither … Nor",b:p("\"Both\" and \"not\" cannot be used together. Replace with <b>Neither … nor</b> to express the negative of two things.")
+ +ex(0,"Both Ram and Shyam are not going to visit this place.")+ex(1,"Neither Ram nor Shyam is going to visit this place.")
+ +ex(0,"This is a war which both sides cannot win.")+ex(1,"This is a war which neither side can win.")
+ +note("\"Neither\" always goes before singular countable nouns and pairs with \"nor\".")
+ +tip("BOTH = positive pair. NEITHER/NOR = negative pair.")},
+
+{n:3,s:0,t:"Relative Pronouns – Who, Whom, Which, That",b:p("<b>Who/Whom</b> — people & named/domesticated animals. <b>Which</b> — non‑domestic animals & things. <b>That</b> — people, animals, or things (no restriction).")
+ +ex(1,"The witnesses WHOM I interviewed gave conflicting evidence.")+ex(1,"Vinita visited the park with a dog, WHICH likes to chase squirrels.")+ex(1,"The car THAT Jasprit bought runs on electricity.")
+ +p("Special rule: after <i>all, any, the only, the same, none, much, the little, the few, something, nothing, superlatives</i> — only THAT is used.")
+ +ex(0,"This is the same book WHICH you were reading.")+ex(1,"This is the same book THAT you were reading.")
+ +tip("WHO = human. WHICH = things/animals. THAT = anything (especially after superlatives).")},
+
+{n:4,s:0,t:"Conditional Sentences (If Clauses)",b:p("<b>Conditional Sentences</b> are structured with strict logical pairings of tenses. Reference the core conditional framework matrix below:")
+ +`<div class="table-container" style="margin: 12px 0;"><div class="table-wrapper"><table class="ref-table"><thead><tr><th style="width:25%">Type</th><th style="width:38%">Condition (If Clause)</th><th style="width:37%">Result (Main Clause)</th></tr></thead><tbody><tr><td><strong>Zero</strong> (Universal Fact)</td><td><code>Simple Present</code></td><td><code>Simple Present</code></td></tr><tr><td><strong>Type 1</strong> (Real / Possible)</td><td><code>Simple Present</code></td><td><code>will + V1 (Future)</code></td></tr><tr><td><strong>Type 2</strong> (Hypothetical)</td><td><code>Simple Past</code></td><td><code>would + V1</code></td></tr><tr><td><strong>Type 3</strong> (Past Unreal/Regret)</td><td><code>Past Perfect (had+V3)</code></td><td><code>would have + V3</code></td></tr></tbody></table></div></div>`
+ +ex(1,"If it rains, I will stay at home. (Type 1)")
+ +ex(1,"If I were rich, I would travel the world. (Type 2)")
+ +ex(1,"If she had studied, she would have passed. (Type 3)")
+ +note("For universal truths, simple present is used in both clauses: \"If you heat water, it boils.\"")
+ +tip("Type 1 = possible future. Type 2 = imaginary present. Type 3 = regret about the past.")},
+
+{n:5,s:0,t:"One of the + Plural Noun",b:p("\"One of the\" is always followed by a plural noun. Verb agreement depends on usage:")
+ +p("(a) If \"one of the\" is the actual subject → singular verb.")+ex(1,"One of the birds IS red.")
+ +p("(b) If a relative pronoun (who/that) follows and refers to the plural noun → plural verb.")+ex(1,"She is one of the mothers who ARE really working hard.")
+ +p("(c) \"The only one of the + plural noun + who/that\" → always singular verb.")+ex(1,"He is the only one of the boys who IS honest.")
+ +tip("Identify what WHO/THAT refers to — if it refers to the plural noun, use a plural verb!")},
+
+{n:6,s:0,t:"Neither…Nor / Either…Or (Verb Agreement)",b:p("When subjects are joined by Neither…nor or Either…or, the verb agrees with the <b>nearer subject</b>.")
+ +ex(1,"Neither the teacher nor the students ARE coming.")+ex(1,"Neither the students nor the teacher IS coming.")+ex(1,"Either you or I AM responsible.")
+ +note("Neither…nor = negative for two. Either…or = positive choice for two.")
+ +tip("Verb follows the NEAREST subject — look at the subject just before the verb!")},
+
+{n:7,s:0,t:"Pronoun Agreement",b:p("A pronoun must agree with its antecedent in number and gender.")
+ +ex(1,"Every student must bring HIS/HER book.")+ex(0,"Every student must bring THEIR book. (technically incorrect in formal English)")
+ +p("Words like everyone, someone, no one, each are singular, so use singular pronouns (his/her).")
+ +note("In modern usage \"their\" with singular nouns is becoming accepted, but avoid it in exams.")},
+
+{n:8,s:0,t:"Whoever vs Whomever",b:p("<b>Whoever</b> is a subjective pronoun (subject of a verb). <b>Whomever</b> is an objective pronoun (object of a verb/preposition).")
+ +ex(1,"Give this prize to WHOEVER wins the race. (subject of \"wins\")")+ex(1,"Give the package to WHOMEVER you choose. (object of \"choose\")")
+ +tip("Test: replace with HE/HIM. HE fits → Whoever. HIM fits → Whomever.")},
+
+{n:9,s:0,t:"Reflexive Pronouns",b:p("Reflexive pronouns (myself, yourself, himself, herself, itself, ourselves, yourselves, themselves) are used when subject and object are the same person, or for emphasis.")
+ +ex(1,"She hurt HERSELF while cooking.")+ex(0,"She hurt HER while cooking.")+ex(1,"I MYSELF saw the accident. (emphasis)")
+ +note("Never use reflexive pronouns as subjects.")+ex(0,"MYSELF and Ram went to the market.")+ex(1,"RAM and I went to the market.")},
+
+{n:10,s:0,t:"Possessive Case Usage",b:p("The possessive case (my, your, his, her, its, our, their) is used before a <b>Gerund</b> (V1+ing as a noun).")
+ +ex(1,"I know HIS reading every night has helped him.")+ex(1,"I hope you don't mind MY staying with you.")
+ +p("Possessive case is always placed after \"all\" and \"both\".")
+ +ex(0,"My all students are talented.")+ex(1,"All MY students are talented.")+ex(0,"My both friends are talented.")+ex(1,"Both MY friends are talented.")
+ +tip("Possessive + Gerund: the focus is on the ACTION, not the person.")},
+
+{n:11,s:1,t:"Subject-Verb Agreement – Basic Rule",b:p("A singular subject takes a singular verb; a plural subject takes a plural verb. Intervening phrases between subject and verb do NOT change the verb.")
+ +ex(1,"The dog runs fast.")+ex(1,"The dogs run fast.")+ex(0,"The quality of the mangoes are good.")+ex(1,"The quality of the mangoes IS good. (subject = \"quality\")")
+ +tip("Find the REAL subject first. Ignore phrases like \"along with\", \"as well as\", \"together with\".")},
+
+{n:12,s:1,t:"Law of Inversion",b:p("Inversion = helping verb before the subject. Used when a sentence begins with: Never, Rarely, Seldom, Hardly, Scarcely, No sooner, Little, Only then, etc.")
+ +ex(1,"RARELY DID he go there.")+ex(1,"SELDOM HAVE I seen such a beautiful view.")+ex(1,"NEVER HAVE I met such a kind person.")
+ +note("Normal: He rarely goes there. | Inverted: Rarely does he go there.")
+ +tip("Negative adverb at start = sentence flips! Verb before subject.")},
+
+{n:13,s:1,t:"Tense Consistency",b:p("When two past actions happened at different times, use <b>Past Perfect</b> (had+V3) for the earlier one and <b>Simple Past</b> (V2) for the later.")
+ +ex(0,"The patient died before the doctor came.")+ex(1,"The patient HAD DIED before the doctor came.")+ex(1,"She submitted the work five hours ago. (Simple Past + \"ago\")")+ex(1,"She had submitted the work before he arrived. (Past Perfect + \"before\")")
+ +tip("Two past events? The older one gets \"had + V3\".")},
+
+{n:14,s:1,t:"Use of 'Since' and 'For'",b:p("<b>Since</b> and <b>For</b> specify timelines but serve contrasting roles in perfect tenses:")
+ +`<div class="table-container" style="margin: 12px 0;"><div class="table-wrapper"><table class="ref-table"><thead><tr><th style="width:50%">SINCE (Specific Point in Past)</th><th style="width:50%">FOR (Length / Duration of Time)</th></tr></thead><tbody><tr><td><code>since 2010</code>, <code>since Monday</code></td><td><code>for 10 years</code>, <code>for 5 days</code></td></tr><tr><td><code>since 9:00 AM</code>, <code>since childhood</code></td><td><code>for 3 hours</code>, <code>for a long time</code></td></tr></tbody></table></div></div>`
+ +ex(1,"I have been living here SINCE 2010.")+ex(1,"I have been living here FOR ten years.")+ex(0,"I have been living here since ten years.")+ex(0,"I have been living here for 2010.")
+ +tip("FOR + number/duration. SINCE + starting point.")},
+
+{n:15,s:1,t:"Use of 'Used to' vs 'Is used to'",b:p("<b>Used to + V1</b> = a regular past habit that no longer happens. <b>Is/Am/Are used to + V+ing</b> = accustomed to something.")
+ +ex(1,"He used to play cricket every day. (no longer does)")+ex(1,"I am used to working late at night. (accustomed)")
+ +tip("USED TO = past habit that stopped. AM/IS/ARE USED TO = already comfortable with.")},
+
+{n:16,s:1,t:"Shall vs Will",b:p("Traditionally: Shall with I/We for simple future; Will with He/She/It/You/They. For determination, promise, threat or command — reverse them.")
+ +ex(1,"I WILL do this no matter what. (determination)")+ex(1,"You SHALL not enter. (command/threat)")
+ +note("In modern English, \"will\" is widely used for all persons in future tense.")},
+
+{n:17,s:1,t:"Modal Verbs – Can, Could, May, Might",b:p("<b>Can</b> = ability/informal permission. <b>Could</b> = past ability/polite request. <b>May</b> = formal permission/possibility. <b>Might</b> = remote possibility.")
+ +ex(1,"Can you help me? (informal) | May I come in? (formal)")+ex(1,"She could swim when she was five.")+ex(1,"It might rain tomorrow.")
+ +note("After \"if\" in conditionals, use could/would/might, not can/will/may.")+ex(0,"If it will rain, I will stay home.")+ex(1,"If it rains, I will stay home.")},
+
+{n:18,s:1,t:"Present Perfect vs Simple Past",b:p("<b>Simple Past</b> = completed action at a definite past time. <b>Present Perfect</b> = action completed but time NOT specified, or with recent relevance.")
+ +ex(0,"I have seen him yesterday.")+ex(1,"I SAW him yesterday. (definite time)")+ex(1,"I HAVE SEEN that movie. (no specific time)")
+ +note("Simple Past clues: yesterday, last week, in 2010, ago. Present Perfect clues: just, already, yet, ever, never, recently, since, for.")
+ +tip("Time mentioned = Simple Past. No time mentioned = Present Perfect.")},
+
+{n:19,s:1,t:"Use of 'ago' and 'before'",b:p("\"Ago\" = a time measured from now → Simple Past. \"Before\" = a time measured from another past event → Past Perfect.")
+ +ex(0,"He had gone two seconds ago.")+ex(1,"He WENT two seconds ago.")+ex(0,"The patient died before the doctor came.")+ex(1,"The patient HAD DIED before the doctor came.")
+ +tip("AGO = Simple Past. BEFORE (between two past events) = Past Perfect.")},
+
+{n:20,s:1,t:"Verbs that Don't Take Passive Voice",b:p("Intransitive verbs (no object) cannot be used in passive voice.")
+ +words("appear, arrive, come, cry, die, exist, fall, go, happen, laugh, look, occur, rise, sleep, smile, walk")
+ +ex(0,"The accident was happened by him.")+ex(1,"The accident HAPPENED.")+ex(0,"The sun was risen.")+ex(1,"The sun ROSE.")
+ +tip("If a verb doesn't take an object, it can't be passive!")},
+
+{n:21,s:1,t:"Double Negatives",b:p("Two negatives in a sentence create an error in formal grammar — avoid using two negative words together.")
+ +ex(0,"I don't know nothing about it.")+ex(1,"I don't know ANYTHING about it.")+ex(1,"I know NOTHING about it.")+ex(0,"He never said nothing.")+ex(1,"He never said ANYTHING.")
+ +tip("One negative = correct. Two negatives = error in formal grammar.")},
+
+{n:22,s:1,t:"Stative (Non-Continuous) Verbs",b:p("Verbs describing a state are not used in continuous tenses.")
+ +words("know, believe, understand, want, need, prefer, love, hate, like, see, hear, smell, taste, seem, appear, have (possession), be, own, belong, contain, consist")
+ +ex(0,"I am knowing the answer.")+ex(1,"I KNOW the answer.")+ex(0,"She is wanting a new phone.")+ex(1,"She WANTS a new phone.")
+ +tip("These verbs show feelings/senses/states — they don't \"do\" anything, so no -ing!")},
+
+{n:23,s:1,t:"Sequence of Tenses",b:p("If main clause = Present/Future, subordinate clause can be any tense. If main clause = Past, subordinate clause must also be past.")
+ +ex(0,"He said that he is tired.")+ex(1,"He said that he WAS tired.")+ex(1,"She says that she is tired. (main verb present)")
+ +note("Exception: universal truths stay present even after a past verb — \"The teacher said the earth REVOLVES around the sun.\"")},
+
+{n:24,s:1,t:"Future Time Clauses",b:p("In time clauses with when, before, after, until, as soon as — use Present Simple (NOT future), even for future meaning.")
+ +ex(0,"When he will come, I will tell him.")+ex(1,"When he COMES, I will tell him.")+ex(0,"As soon as she will finish, we will leave.")+ex(1,"As soon as she FINISHES, we will leave.")
+ +tip("After time conjunctions (when/until/before/after) → present tense even for future!")},
+
+{n:25,s:1,t:"Use of 'Would'",b:p("Would is used for: 1) past habit, 2) polite requests, 3) hypothetical situations, 4) future in the past.")
+ +ex(1,"He would visit us every Sunday. (past habit)")+ex(1,"Would you please help me? (polite)")+ex(1,"If I were rich, I would travel. (hypothetical)")+ex(1,"She said she would come. (future in the past)")
+ +note("Never use \"would\" after \"if\" in the condition part.")+ex(0,"If I would have time, I would help you.")+ex(1,"If I HAD time, I would help you.")},
+
+{n:26,s:1,t:"Adverb 'As' – When to Use",b:p("\"As\" is used as an adverb with verbs like treat, define, regard, describe, respect, depict, portray, view, know.")
+ +ex(1,"Biology is defined AS the science of living beings.")+ex(1,"He is regarded AS a great leader.")
+ +p("\"As\" is NOT used with: elect, name, think, consider, call, make, choose, appoint.")
+ +ex(0,"They elected him AS the president.")+ex(1,"They elected him PRESIDENT.")+ex(0,"He was named AS John.")+ex(1,"He was named John.")
+ +tip("call/name/elect/appoint → no \"as\". define/regard/describe → \"as\" required.")},
+
+{n:27,s:1,t:"Although / Though / Even Though",b:p("These introduce a contrast. Never use but/yet/still/however in the same sentence with although/though.")
+ +ex(0,"Although he was tired, but he continued working.")+ex(1,"Although he was tired, he continued working.")+ex(1,"He was tired, but he continued working.")
+ +tip("ALTHOUGH already means \"but\" — you don't need both! One contrast word per sentence.")},
+
+{n:28,s:1,t:"Because / Because of",b:p("\"Because\" is a conjunction, followed by a clause (Subject+Verb). \"Because of\" is a preposition, followed by a noun phrase.")
+ +ex(1,"He failed BECAUSE he did not study.")+ex(1,"He failed BECAUSE OF his laziness.")+ex(0,"He failed because of he did not study.")+ex(0,"He failed because his laziness.")
+ +tip("Because + sentence. Because of + noun/noun phrase.")},
+
+{n:29,s:1,t:"No Sooner … Than",b:p("Used for one action happening immediately after another. Use Past Perfect in the \"No sooner\" clause, paired with \"than\".")
+ +ex(1,"No sooner HAD I reached the station THAN the train left.")+ex(0,"No sooner had I reached the station when the train left.")
+ +note("\"Hardly/Scarcely … when/before\" follows the same pattern.")+ex(1,"Hardly had she sat down WHEN the phone rang.")
+ +tip("No sooner + had → THAN. Hardly/Scarcely + had → WHEN/BEFORE.")},
+
+{n:30,s:1,t:"Gerund vs Infinitive after Verbs",b:p("Some verbs take a Gerund:")+words("enjoy, avoid, finish, suggest, consider, admit, deny, postpone, keep, mind, practice, risk, imagine")
+ +ex(1,"She enjoys READING novels.")
+ +p("Some verbs take an Infinitive:")+words("want, wish, hope, decide, plan, agree, refuse, manage, fail, afford, offer, promise, try")
+ +ex(1,"She wants TO READ that book.")
+ +p("Some take both, with different meanings:")+ex(1,"I stopped SMOKING. (I quit)")+ex(1,"I stopped TO SMOKE. (I paused to smoke)")
+ +tip("Enjoy/avoid/finish/keep = gerund. Want/hope/decide/plan = infinitive.")},
+
+{n:31,s:2,t:"Degrees of Comparison",b:p("Three degrees: Positive, Comparative (more/-er), Superlative (most/-est). Always compare similar things.")
+ +ex(0,"The population of India is greater than China.")+ex(1,"The population of India is greater than THAT OF China.")
+ +tip("Comparing two? Use -er/more. Comparing three+? Use -est/most.")},
+
+{n:32,s:2,t:"Double Comparatives",b:p("Never use double comparatives or double superlatives.")
+ +ex(0,"She is more smarter than her sister.")+ex(1,"She is smarter than her sister.")+ex(0,"He is the most cleverest boy.")+ex(1,"He is the cleverest boy.")
+ +tip("Either \"more\" OR \"-er\" — never both! Either \"most\" OR \"-est\" — never both!")},
+
+{n:33,s:2,t:"Absolute Adjectives",b:p("Some adjectives already represent the highest degree and cannot be compared or intensified.")
+ +words("unique, perfect, absolute, complete, total, entire, round, square, equal, infinite, eternal, dead, impossible")
+ +ex(0,"He is the most unique student in the class.")+ex(1,"He is A UNIQUE student in the class.")+ex(0,"She is completely perfect.")+ex(1,"She is perfect.")
+ +note("These words are already at 100% — you can't be \"more perfect\" or \"very unique\"!")},
+
+{n:34,s:2,t:"Order of Adjectives",b:p("Multiple adjectives follow a specific order: Opinion → Size → Age → Shape → Color → Origin → Material → Purpose + Noun.")
+ +ex(1,"A lovely little old rectangular green French silver cooking knife.")
+ +tip("Remember OSASCOMP — Opinion, Size, Age, Shape, Color, Origin, Material, Purpose.")},
+
+{n:35,s:2,t:"Few/A Few/The Few · Little/A Little/The Little",b:p("Determiners of quantity change meaning based on their countability and the presence of articles:")
+ +`<div class="table-container" style="margin: 12px 0;"><div class="table-wrapper"><table class="ref-table"><thead><tr><th style="width:20%">Type</th><th style="width:40%">Countable (Plural Nouns)</th><th style="width:40%">Uncountable (Singular Nouns)</th></tr></thead><tbody><tr><td><strong>Negative</strong><br><small>Hardly any / almost none</small></td><td><code>Few</code> (e.g., *few friends*)</td><td><code>Little</code> (e.g., *little hope*)</td></tr><tr><td><strong>Positive</strong><br><small>Some quantity exists</small></td><td><code>A few</code> (e.g., *a few resources*)</td><td><code>A little</code> (e.g., *a little help*)</td></tr><tr><td><strong>Specific</strong><br><small>All of what's left</small></td><td><code>The few</code> (e.g., *the few friends*)</td><td><code>The little</code> (e.g., *the little water*)</td></tr></tbody></table></div></div>`
+ +ex(1,"I have A FEW friends. (some)")+ex(1,"I have FEW friends. (almost none)")+ex(1,"I have A LITTLE money left. (some)")+ex(1,"I have LITTLE hope. (almost none)")
+ +tip("\"A\" makes it positive. No article = negative/pessimistic meaning.")},
+
+{n:36,s:2,t:"Much, Many, A lot of",b:p("<b>Much</b> = uncountable nouns. <b>Many</b> = countable (plural) nouns. <b>A lot of</b> = both.")
+ +ex(1,"She doesn't have MUCH money.")+ex(1,"She doesn't have MANY friends.")+ex(1,"She has A LOT OF money / friends.")
+ +tip("Countable = many. Uncountable = much.")},
+
+{n:37,s:2,t:"Elder/Older, Eldest/Oldest",b:p("<b>Elder/Eldest</b> = family relationship only, NOT followed by \"than\". <b>Older/Oldest</b> = general age comparison, can take \"than\".")
+ +ex(1,"He is my ELDER brother.")+ex(0,"He is elder than me.")+ex(1,"He is OLDER than me.")+ex(1,"She is the ELDEST daughter in the family.")
+ +tip("ELDER = family only, no \"than\". OLDER = general comparison, takes \"than\".")},
+
+{n:38,s:2,t:"Farther vs Further",b:p("<b>Farther</b> = physical distance. <b>Further</b> = additional/metaphorical distance.")
+ +ex(1,"The school is FARTHER from my house than I thought.")+ex(1,"We need to discuss this FURTHER.")+ex(1,"FURTHER notice will be given.")
+ +tip("FARTHER = far (physical). FURTHER = more (abstract/additional).")},
+
+{n:39,s:2,t:"Position of Adverbs",b:p("Adverbs of frequency (always, never, often, usually, rarely, seldom) go before the main verb, and after the verb \"to be\".")
+ +ex(1,"She ALWAYS ARRIVES on time.")+ex(1,"He IS ALWAYS on time.")+ex(0,"She arrives always on time.")
+ +tip("Before main verb, after \"be\" verb.")},
+
+{n:40,s:2,t:"Enough – Position Rules",b:p("As an <b>Adjective</b>, \"enough\" comes BEFORE the noun. As an <b>Adverb</b>, it comes AFTER the adjective.")
+ +ex(1,"He has ENOUGH SUGAR. (adjective use)")+ex(1,"She is SMART ENOUGH. (adverb use)")+ex(0,"She is enough smart.")+ex(0,"He has sugar enough.")
+ +tip("ENOUGH + noun (adjective use). Adjective + ENOUGH (adverb use).")},
+
+{n:41,s:2,t:"Very vs Too",b:p("<b>Very</b> just intensifies — neutral. <b>Too</b> means excessively, with a negative sense (a problem).")
+ +ex(1,"The bag is VERY heavy. (just intensifying)")+ex(1,"The bag is TOO heavy to carry. (problematic)")
+ +note("\"Too\" usually leads to a problem: too tired to walk, too young to drive.")
+ +tip("VERY = just strong. TOO = so strong there's a problem.")},
+
+{n:42,s:2,t:"Quite vs Quiet",b:p("<b>Quite</b> = adverb meaning completely/fairly. <b>Quiet</b> = noun/adjective meaning silent/calm.")
+ +ex(1,"He is QUITE well. (fairly well)")+ex(1,"Please be QUIET! (silent)")
+ +note("\"Quite\" and \"all\" cannot be used together.")+ex(0,"He is quite all well.")+ex(1,"He is quite well.")},
+
+{n:43,s:2,t:"Superlatives with 'most'",b:p("\"Most\" without \"the\" before an adjective means \"very/extremely\", not a superlative.")
+ +ex(1,"It is MOST KIND of you. (= very kind)")+ex(1,"She is THE MOST KIND person I know. (superlative)")
+ +note("THE + most + adjective = superlative. Most + adjective (no THE) = very/extremely.")},
+
+{n:44,s:2,t:"Comparative with 'more' — Two-Syllable Rule",b:p("One-syllable: add -er/-est (fast→faster→fastest). Two syllables ending in -y: change y→i, add -er/-est (happy→happier). Two+ syllables: use more/most.")
+ +ex(0,"She is more tall than her brother.")+ex(1,"She is TALLER than her brother.")+ex(0,"He is importanter.")+ex(1,"He is MORE IMPORTANT.")},
+
+{n:45,s:2,t:"Adjectives Used as Nouns",b:p("Some adjectives preceded by \"the\" act as nouns representing a group of people, and take a plural verb.")
+ +words("the poor, the rich, the blind, the deaf, the old, the young, the living, the dead")
+ +ex(1,"The poor ARE always exploited.")+ex(1,"The blind WERE helped by the volunteers.")+ex(0,"The poor is always exploited.")
+ +tip("The + adjective = a group of people → always plural verb!")},
+
+{n:46,s:2,t:"Hardly, Scarcely, Barely",b:p("These are already negative in meaning — should NOT be followed by another negative word.")
+ +ex(0,"I could hardly not see anything.")+ex(1,"I could HARDLY see anything.")+ex(1,"There is SCARCELY any water left.")
+ +note("When these start a sentence, inversion is required.")+ex(1,"Hardly had I sat down WHEN the phone rang.")},
+
+{n:47,s:2,t:"Quite All – Incorrect Collocation",b:p("\"Quite\" and \"all\" are never used together.")
+ +ex(0,"He is quite all well.")+ex(1,"He is quite well.")+ex(0,"She has done quite all the work.")+ex(1,"She has done all the work.")
+ +note("Similarly, \"rather\" cannot be used with \"all\" or comparative adjectives without special context.")},
+
+{n:48,s:2,t:"Tense with 'ago' and 'before'",b:p("\"Ago\" = a specific time before now → Simple Past. \"Before\" = time before another past event → Past Perfect.")
+ +ex(0,"He had gone two seconds ago.")+ex(1,"He WENT two seconds ago.")+ex(0,"The patient died before the doctor came.")+ex(1,"The patient HAD DIED before the doctor came.")
+ +tip("Ago = Simple Past (V2). Before (between two past events) = Past Perfect (had+V3).")},
+
+{n:49,s:2,t:"As Soon As – Not Followed by 'Than'",b:p("\"As soon as\" is never followed by \"than\" — that pairing belongs to \"No sooner\".")
+ +ex(0,"As soon as I complete the work than I will call you.")+ex(1,"As soon as I complete the work, I will call you.")+ex(1,"No sooner did I complete the work THAN I called you.")
+ +note("Similarly, \"as\" is not used with \"so\": \"As he was unwell so he didn't come\" is wrong.")+ex(1,"AS he was unwell, he didn't come.")},
+
+{n:50,s:2,t:"Due to vs Owing to vs Because of",b:p("<b>Due to</b> = caused by (modifies a noun, usually after \"be\"). <b>Owing to / Because of</b> = used as an adverbial phrase, modifying a verb.")
+ +ex(1,"His failure was DUE TO laziness. (modifies \"failure\")")+ex(1,"OWING TO / BECAUSE OF rain, the match was cancelled.")
+ +ex(0,"Due to the reason that he is not well, he did not come.")+ex(1,"He did not come DUE TO sickness.")
+ +note("\"Due to the reason\" is redundant — just use \"due to\" or \"because\".")},
+
+{n:51,s:3,t:"Countable vs Uncountable Nouns",b:p("Uncountable nouns cannot take plural forms or indefinite articles. Study the quick references below for commonly confused exceptions:")
+ +`<div class="table-container" style="margin: 12px 0;"><div class="table-wrapper"><table class="ref-table"><thead><tr><th style="width:30%">Noun Category</th><th style="width:35%">Incorrect Usage</th><th style="width:35%">Correct Usage</th></tr></thead><tbody><tr><td><strong>Information</strong></td><td><code style="color:var(--red);">an information</code> / <code style="color:var(--red);">informations</code></td><td><code>information</code> / <code>a piece of information</code></td></tr><tr><td><strong>Furniture</strong></td><td><code style="color:var(--red);">furnitures</code></td><td><code>furniture</code> / <code>items of furniture</code></td></tr><tr><td><strong>Advice</strong></td><td><code style="color:var(--red);">an advice</code> / <code style="color:var(--red);">advices</code></td><td><code>advice</code> / <code>a piece of advice</code></td></tr><tr><td><strong>Luggage / Equipment</strong></td><td><code style="color:var(--red);">luggages</code> / <code style="color:var(--red);">equipments</code></td><td><code>luggage</code> / <code>pieces of equipment</code></td></tr></tbody></table></div></div>`
+ +ex(0,"She gave me many informations.")+ex(1,"She gave me a lot of INFORMATION.")+ex(0,"I need an advice from you.")+ex(1,"I need ADVICE from you.")
+ +note("Commonly misused as countable: advice, information, furniture, luggage, equipment, news, knowledge, traffic, money.")
+ +tip("Uncountable = no plural, no \"a/an\" before them!")},
+
+{n:52,s:3,t:"Articles – A, An, The",b:p("<b>A</b> = before consonant sounds. <b>An</b> = before vowel sounds. <b>The</b> = definite article for specific/known things.")
+ +ex(1,"A university (\"u\" sounds like \"you\")")+ex(1,"An honest man (\"h\" is silent, vowel sound)")+ex(1,"An hour, an MBA, an X-ray, an MP")
+ +tip("A/An rule is about SOUND, not the letter!")},
+
+{n:53,s:3,t:"When NOT to Use Articles",b:p("No article before: languages, games/sports, meals, school subjects, and proper nouns; also \"man/woman\" in a general sense.")
+ +ex(1,"I speak FRENCH.")+ex(1,"She plays CHESS.")+ex(1,"We had DINNER together.")+ex(1,"He studies PHYSICS.")+ex(1,"MAN is mortal.")
+ +note("Exception: \"the\" is used with rivers, mountain ranges, oceans, newspapers, etc.")},
+
+{n:54,s:3,t:"Collective Nouns",b:p("Collective nouns take a singular verb when the group acts as one unit, and a plural verb when individuals act separately.")
+ +words("committee, jury, government, army, crew, staff, audience, family, class")
+ +ex(1,"The team IS playing well. (one unit)")+ex(1,"The team ARE arguing among themselves. (individually)")
+ +tip("One unit → singular. Different actions → plural.")},
+
+{n:55,s:3,t:"Compound Nouns – Plurals",b:p("For compound nouns, the main/principal word takes the plural form.")
+ +ex(1,"Sons-in-law (not son-in-laws)")+ex(1,"Brothers-in-law, Passers-by, Mothers-in-law, Commanders-in-chief")
+ +note("Book-case → Book-cases (second word main). Brother-in-law → Brothers-in-law (first word main).")
+ +tip("For possession, add apostrophe s at the end: sister-in-law's car.")},
+
+{n:56,s:3,t:"Nouns Used Only in Plural",b:p("Some nouns have no singular form and always take a plural verb.")
+ +words("scissors, trousers, spectacles, jeans, pants, shorts, tongs, pliers, scales, goggles, bellows, binoculars")
+ +ex(1,"The scissors ARE on the table.")+ex(0,"The scissors is on the table.")
+ +tip("Two blades / two legs / two lenses → plural noun, plural verb!")},
+
+{n:57,s:3,t:"Nouns Used Only in Singular",b:p("Some nouns look plural but take a singular verb — especially subjects of study.")
+ +words("news, mathematics, physics, economics, ethics, politics, athletics, gymnastics, billiards, gallows")
+ +ex(1,"The news IS shocking.")+ex(1,"Mathematics IS my favorite subject.")+ex(0,"Mathematics are difficult.")
+ +tip("Subjects ending in -ics and \"news\" = singular verb despite plural appearance.")},
+
+{n:58,s:3,t:"Apostrophe (Possession)",b:p("Singular noun: add 's. Plural ending in s: add just '. Plural not ending in s: add 's. Inanimate objects use \"of\" instead.")
+ +ex(1,"the boy's book / the boys' books / children's toys")
+ +ex(0,"The table's leg is broken.")+ex(1,"The leg OF THE TABLE is broken.")
+ +note("Exception: time/measurement expressions use apostrophe — one day's leave, two weeks' notice.")
+ +tip("Living things = apostrophe + s. Non-living things = \"of\".")},
+
+{n:59,s:3,t:"Male vs Female / Man vs Woman Before Nouns",b:p("\"Male/Female\" before a noun describes characteristics suited for that gender. \"Man/Woman\" describes the gender of the person doing the role.")
+ +ex(1,"Female watch = watches designed for females.")+ex(1,"Woman doctor = a doctor who is a woman.")
+ +note("Plural: men doctors, women doctors (both words change).")
+ +tip("Female/Male = product characteristic. Man/Woman = the gender of the person doing the job.")},
+
+{n:60,s:3,t:"Abstract Nouns – No Article",b:p("Abstract nouns are generally used without articles.")
+ +words("honesty, beauty, courage, love, wisdom, freedom, justice, knowledge")
+ +ex(1,"HONESTY is the best policy.")+ex(1,"BEAUTY lies in the eyes of the beholder.")
+ +p("When referring to a specific quality, \"the\" may be used:")+ex(1,"The wisdom of Solomon was legendary.")
+ +tip("General abstract concepts → no article. Specific instance → \"the\".")},
+
+{n:61,s:3,t:"Noun Clause as Subject",b:p("A noun clause acting as subject always takes a singular verb.")
+ +ex(1,"What you said IS absolutely correct.")+ex(1,"That she passed the exam IS wonderful.")+ex(0,"What you said are absolutely correct.")
+ +tip("A noun clause is treated as one singular thing → singular verb.")},
+
+{n:62,s:3,t:"Some vs Any",b:p("<b>Some</b> = positive sentences and offers. <b>Any</b> = negative sentences and questions.")
+ +ex(1,"I have SOME friends in Delhi.")+ex(1,"Do you have ANY friends in Delhi?")+ex(1,"I don't have ANY friends here.")
+ +p("\"Some\" is used in questions expecting a \"yes\" (offers):")+ex(1,"Would you like SOME coffee?")
+ +tip("Positive = some. Negative/Question = any. Offer = some.")},
+
+{n:63,s:3,t:"Quantity Words with Uncountable Nouns",b:p("Some quantity words pair only with uncountable nouns; others only with countable nouns.")
+ +words("uncountable: much, a little, less, a great deal of, a good deal of")
+ +words("countable: many, a few, fewer, a number of, several")
+ +ex(0,"Small quantity of food was wasted.")+ex(1,"A SMALL AMOUNT of food was wasted.")
+ +tip("\"Quantity\" pairs only with \"small\", not \"little\" or \"few\".")},
+
+{n:64,s:3,t:"Plural of Letters and Numbers",b:p("For lowercase letters and numbers, add 's to avoid confusion; for capitalized abbreviations or numbers, just add s.")
+ +ex(1,"Mind your p's and q's.")+ex(1,"He got two A's in his exam.")+ex(1,"The 1980s. Three CDs. The MPs voted.")},
+
+{n:65,s:3,t:"Difference: Number vs Amount",b:p("<b>Number</b> = countable nouns. <b>Amount</b> = uncountable nouns.")
+ +ex(1,"A large NUMBER of students failed.")+ex(1,"A large AMOUNT of money was spent.")+ex(0,"A large amount of students failed.")+ex(0,"A large number of money was spent.")
+ +tip("Count them? → Number. Can't count? → Amount.")},
+
+{n:66,s:3,t:"The Use of 'The' with Superlatives",b:p("Superlatives are always preceded by \"the\".")
+ +ex(1,"She is THE BEST student in the class.")+ex(0,"She is best student in class.")
+ +note("Exception: with a possessive adjective before the superlative, \"the\" isn't needed — \"She is MY BEST friend.\"")},
+
+{n:67,s:3,t:"Difference: Habit vs Custom",b:p("<b>Habit</b> = personal behavior. <b>Custom</b> = behavior belonging to a society or country.")
+ +ex(1,"Mohan has a bad HABIT of biting his nails.")+ex(1,"It is a CUSTOM in our country to greet elders with folded hands.")
+ +tip("Habit = personal. Custom = cultural/social.")},
+
+{n:68,s:3,t:"Difference: Cause vs Reason",b:p("<b>Cause</b> = what produces a result. <b>Reason</b> = what explains or justifies it.")
+ +ex(1,"The scientists could not determine the CAUSE of the earthquake.")+ex(1,"You have a good REASON to be angry.")
+ +tip("Cause = what made it happen. Reason = why it happened/justification.")},
+
+{n:69,s:3,t:"Difference: Price vs Cost",b:p("<b>Price</b> = the amount paid to buy something. <b>Cost</b> = the amount spent to produce something.")
+ +ex(1,"The PRICE of this shirt is Rs 500.")+ex(1,"The COST of production has increased.")
+ +tip("Price = buyer pays. Cost = maker spends.")},
+
+{n:70,s:3,t:"Nouns with Irregular Plurals",b:p("Some nouns have irregular plurals; some are identical in singular and plural.")
+ +words("Child→Children, Man→Men, Woman→Women, Tooth→Teeth, Foot→Feet, Mouse→Mice, Goose→Geese, Ox→Oxen, Louse→Lice, Die→Dice")
+ +words("Same singular/plural: sheep, deer, fish, aircraft, series, species, offspring, swine")
+ +ex(1,"There are 50 SHEEP in the field. (not \"sheeps\")")
+ +tip("Learn the irregular ones by heart — they're exam favorites!")},
+
+{n:71,s:4,t:"Prepositions with Verbs – Fixed Pairs",b:p("Many verbs have fixed prepositions.")
+ +words("agree WITH a person · agree TO a proposal · agree ON a plan · differ FROM (unlike) · differ WITH (disagree) · compare WITH (similar) · compare TO (unlike, metaphorical)")
+ +ex(1,"She AGREES WITH me on this issue.")+ex(1,"He AGREED TO my proposal.")
+ +tip("Verb + preposition combinations are fixed — memorize them!")},
+
+{n:72,s:4,t:"Prepositions of Time – At, On, In",b:p("Prepositions of time scale from precise coordinates to general eras:")
+ +`<div class="table-container" style="margin: 12px 0;"><div class="table-wrapper"><table class="ref-table"><thead><tr><th style="width:25%">Preposition</th><th style="width:35%">Scale / Scope</th><th style="width:40%">Typical Examples</th></tr></thead><tbody><tr><td><span class="ref-badge active-tag" style="margin:0;">AT</span></td><td><strong>Precise points</strong> of time</td><td><code>at 10:30 AM</code>, <code>at noon</code>, <code>at sunset</code></td></tr><tr><td><span class="ref-badge direct-tag" style="margin:0;">ON</span></td><td><strong>Days & dates</strong></td><td><code>on Monday</code>, <code>on July 4th</code>, <code>on birthday</code></td></tr><tr><td><span class="ref-badge indirect-tag" style="margin:0;">IN</span></td><td><strong>Nonspecific / long periods</strong></td><td><code>in winter</code>, <code>in 1995</code>, <code>in the 18th century</code></td></tr></tbody></table></div></div>`
+ +ex(1,"The exam is AT 10 AM ON Monday IN January.")+ex(0,"The exam is in 10 AM on January.")
+ +tip("AT = clock time. ON = days. IN = months/years/seasons.")},
+
+{n:73,s:4,t:"Between vs Among",b:p("<b>Between</b> = two people/things. <b>Among</b> = three or more.")
+ +ex(1,"The secret is BETWEEN you and me.")+ex(1,"Distribute the chocolates AMONG the children.")+ex(0,"Divide the cake between the three friends.")+ex(1,"Divide the cake AMONG the three friends.")
+ +tip("2 = Between. 3 or more = Among.")},
+
+{n:74,s:4,t:"In vs Into / On vs Onto",b:p("<b>In/On</b> = position. <b>Into/Onto</b> = movement.")
+ +ex(1,"The fish is IN the water. (position)")+ex(1,"The fish jumped INTO the water. (movement)")+ex(1,"The book is ON the table. (position)")+ex(1,"She climbed ONTO the roof. (movement)")
+ +tip("Position = in/on. Movement = into/onto.")},
+
+{n:75,s:4,t:"By vs With – Instrument vs Agent",b:p("In passive voice, <b>By</b> = the agent (doer). <b>With</b> = the instrument/tool used.")
+ +ex(1,"The cake was cut BY the chef WITH a knife.")+ex(0,"The cake was cut with the chef.")+ex(0,"The cake was cut by a knife.")
+ +tip("BY + doer (person/animal). WITH + tool (thing used).")},
+
+{n:76,s:4,t:"Prepositions with Adjectives",b:p("Many adjectives require specific prepositions.")
+ +words("angry WITH a person / angry AT a thing · good AT (skill) · good FOR (benefit) · interested IN · curious ABOUT · satisfied WITH · afraid OF · responsible FOR")
+ +ex(1,"She is good AT mathematics.")+ex(1,"Milk is good FOR health.")+ex(1,"He is responsible FOR the accident.")
+ +tip("These adjective+preposition combos are tested frequently — memorize a list!")},
+
+{n:77,s:4,t:"Since vs From",b:p("<b>Since</b> = with Perfect tenses, for a point in past time. <b>From</b> = with Simple/Continuous tenses, often for scheduled/future time.")
+ +ex(1,"He HAS BEEN working here SINCE 2015.")+ex(1,"The office is open FROM 9 AM to 5 PM.")+ex(0,"He is working here since 2015.")+ex(0,"He has been working from 2015.")
+ +tip("SINCE = with perfect tense. FROM = with simple/continuous for ongoing/scheduled time.")},
+
+{n:78,s:4,t:"Beside vs Besides",b:p("<b>Beside</b> = next to (physical position). <b>Besides</b> = in addition to.")
+ +ex(1,"She sat BESIDE me. (next to)")+ex(1,"BESIDES English, she also speaks French. (in addition to)")+ex(0,"Besides her house, there is a park.")+ex(1,"BESIDE her house, there is a park.")
+ +tip("BESIDE = next to. BESIDES = in addition to.")},
+
+{n:79,s:4,t:"Preposition 'At' – Special Uses",b:p("Use \"at\" for a specific point/address, smaller areas, speed/rate/price, and age.")
+ +ex(1,"He is AT home right now.")+ex(1,"The train travels AT 120 km/h.")+ex(1,"She got married AT 25.")
+ +note("We say \"at the end\" (final point) but \"in the end\" (eventually/finally).")},
+
+{n:80,s:4,t:"Preposition 'Of' – Common Errors",b:p("\"Of\" is often wrongly added or omitted.")
+ +ex(0,"He is outside of the room.")+ex(1,"He is OUTSIDE the room. (\"of\" not needed after outside/inside/off/aboard)")+ex(0,"She is desirous for success.")+ex(1,"She is desirous OF success.")
+ +note("After desirous, fond, afraid, ashamed, proud, tired → use \"of\".")},
+
+{n:81,s:4,t:"Preposition with Numbers and Dates",b:p("Use <b>on</b> for dates, <b>in</b> for years and centuries, <b>at</b> for specific times of day.")
+ +ex(1,"The exam is ON 15th August.")+ex(1,"She was born IN 1995.")+ex(1,"This happened IN the 18th century.")+ex(1,"The meeting is AT 9 AM.")},
+
+{n:82,s:4,t:"Correlative Conjunctions",b:p("Correlative conjunctions work in pairs; the structure after each part must be parallel.")
+ +words("Either…or · Neither…nor · Not only…but also · Both…and · Whether…or")
+ +ex(0,"She is not only talented but also she is hardworking.")+ex(1,"She is NOT ONLY talented BUT ALSO hardworking.")+ex(0,"Either come now or you can come later.")+ex(1,"EITHER come now OR come later.")
+ +tip("Both parts of the pair must introduce the same grammatical structure (parallelism).")},
+
+{n:83,s:4,t:"Not Only … But Also",b:p("Joins two elements of equal grammatical weight. When starting a sentence, inversion is required in the first clause.")
+ +ex(1,"She is NOT ONLY intelligent BUT ALSO hardworking.")+ex(1,"NOT ONLY did he sing, but he also danced. (inversion)")
+ +tip("Sentence starts with \"Not only\" → inversion in first clause!")},
+
+{n:84,s:4,t:"So … That vs Such … That",b:p("<b>So + adj/adv + that</b> — no noun follows directly. <b>Such + a/an + adj + noun + that</b> — a noun follows.")
+ +ex(1,"She ran SO FAST THAT she broke the record.")+ex(1,"He was SUCH A GOOD student THAT everyone admired him.")+ex(0,"She ran such fast that she broke the record.")
+ +tip("SO + adjective (no noun after). SUCH + (a/an) + adjective + noun.")},
+
+{n:85,s:4,t:"Whether vs If",b:p("<b>Whether</b> = two alternatives/choices. <b>If</b> = conditions (one scenario).")
+ +ex(1,"Tell me WHETHER you will come OR not.")+ex(1,"I'll come IF it doesn't rain.")+ex(0,"Tell me if you will come or not.")
+ +note("\"Whether\" is always used before \"or not\" and before infinitives (whether to go).")
+ +tip("Two options → Whether. One condition → If.")},
+
+{n:86,s:4,t:"Lest … Should",b:p("\"Lest\" means \"for fear that\". It is always followed by \"should\" (not may/might/will).")
+ +ex(1,"Walk carefully LEST you SHOULD fall.")+ex(0,"Walk carefully lest you may fall.")
+ +tip("LEST is always paired with SHOULD. No other modal after lest!")},
+
+{n:87,s:4,t:"Scarcely/Hardly/No Sooner – Inversion",b:p("When a sentence begins with these negative/restrictive adverbs, inversion is required.")
+ +words("No sooner, Hardly, Scarcely, Never, Rarely, Seldom, Little, Only, Not only")
+ +ex(1,"NO SOONER had he entered THAN it started raining.")+ex(1,"HARDLY had she spoken WHEN everyone laughed.")+ex(1,"NEVER have I seen such courage.")
+ +tip("Negative adverb at start → flip verb and subject!")},
+
+{n:88,s:4,t:"Unless vs If not",b:p("\"Unless\" = if not, but it cannot be paired with \"not\" — they'd cancel out as a double negative.")
+ +ex(0,"Unless you don't study, you will fail.")+ex(1,"Unless you STUDY, you will fail.")+ex(1,"If you DON'T study, you will fail.")
+ +tip("UNLESS = IF NOT. Never say \"unless … not\".")},
+
+{n:89,s:4,t:"Though vs Although vs Even Though",b:p("All three introduce contrast; never paired with but/yet/still. \"Even though\" is the strongest, for surprising contrasts.")
+ +ex(0,"Though he worked hard, but he failed.")+ex(1,"THOUGH he worked hard, he failed.")+ex(1,"EVEN THOUGH it was midnight, she kept working.")
+ +tip("Though/Although/Even though = contrast. Remove \"but\" when using them!")},
+
+{n:90,s:4,t:"Connectors – Transition Words",b:p("Contrast: however, nevertheless, nonetheless, on the other hand, in contrast, yet, still. Addition: moreover, furthermore, in addition, also, besides. Result: therefore, thus, hence, consequently, as a result.")
+ +ex(1,"He worked hard. HOWEVER, he failed. (contrast)")+ex(1,"She is smart. MOREOVER, she is hardworking. (addition)")
+ +tip("Learn 2–3 connectors per category — exams love testing them!")},
+
+{n:91,s:5,t:"Parallelism in Sentences",b:p("When listing items or using correlative conjunctions, all elements must be in the same grammatical form.")
+ +ex(0,"She likes reading, to cook, and playing tennis.")+ex(1,"She likes READING, COOKING, and PLAYING tennis.")+ex(0,"He is intelligent, hardworking, and has honesty.")+ex(1,"He is INTELLIGENT, HARDWORKING, and HONEST.")
+ +tip("Matching forms = parallelism. If the first item is -ing, all must be -ing!")},
+
+{n:92,s:5,t:"Dangling Modifiers",b:p("A dangling modifier doesn't clearly refer to the subject of the sentence.")
+ +ex(0,"Walking down the street, the flowers smelled lovely.")+ex(1,"WALKING DOWN THE STREET, I smelled the lovely flowers.")+ex(0,"Having finished the exam, the teacher collected the papers.")+ex(1,"Having finished the exam, THE STUDENTS handed their papers to the teacher.")
+ +tip("The introductory phrase must describe the subject of the main clause!")},
+
+{n:93,s:5,t:"Reported Speech – Tense Changes",b:p("In indirect speech, tenses shift back: Present→Past, Past→Past Perfect, Will→Would, Can→Could, May→Might.")
+ +ex(1,"Direct: \"I AM tired.\" → Indirect: She said that she WAS tired.")+ex(1,"Direct: \"I WILL come.\" → Indirect: He said that he WOULD come.")+ex(1,"Direct: \"I HAVE eaten.\" → Indirect: She said that she HAD eaten.")
+ +note("Universal truths don't change tense in reported speech.")
+ +tip("Imagine telling someone else what was said — push the tense one step into the past.")},
+
+{n:94,s:5,t:"Pronoun Order in Sentences (231 / 123 Rule)",b:p("When multiple personal pronouns are grouped together, follow the strict etiquette structure below:")
+ +`<div class="table-container" style="margin: 12px 0;"><div class="table-wrapper"><table class="ref-table"><thead><tr><th style="width:35%">Context Scenario</th><th style="width:25%">Order Code</th><th style="width:40%">Example Order</th></tr></thead><tbody><tr><td><strong>Positive / Normal</strong></td><td><code>2 → 3 → 1</code></td><td><strong>You, he and I</strong> are selected.</td></tr><tr><td><strong>Negative / Guilt / Error</strong></td><td><code>1 → 2 → 3</code></td><td><strong>I, you and he</strong> made the mistake.</td></tr><tr><td><strong>Plural Pronouns</strong></td><td><code>1 → 2 → 3</code></td><td><strong>We, you and they</strong> should go.</td></tr></tbody></table></div></div>`
+ +ex(1,"YOU, HE and I are good friends. (2,3,1 — positive)")
+ +ex(1,"I, YOU and HE are responsible for this mistake. (1,2,3 — negative)")
+ +tip("Positive: others first, I last (humble). Negative: I first (taking responsibility).")},
+
+{n:95,s:5,t:"Comparison Must Be Between Like Things",b:p("Always compare things of the same category.")
+ +ex(0,"The weather of Mumbai is hotter than Delhi.")+ex(1,"The weather of Mumbai is hotter than THAT OF Delhi.")+ex(0,"Her voice is better than Lata.")+ex(1,"Her voice is better than THAT OF Lata.")
+ +note("Use \"that of\" for singular nouns, \"those of\" for plural, to avoid comparing unlike things.")},
+
+{n:96,s:5,t:"Possessive After All and Both",b:p("The possessive adjective comes after \"all\" and \"both\" — never before.")
+ +ex(0,"My all students are talented.")+ex(1,"All MY students are talented.")+ex(0,"My both friends are coming.")+ex(1,"Both MY friends are coming.")
+ +tip("ALL MY / BOTH MY — not my all / my both.")},
+
+{n:97,s:5,t:"As soon as — Not Followed by Than",b:p("\"As soon as\" expresses immediacy and is never followed by \"than\"; that belongs with \"No sooner\".")
+ +ex(0,"As soon as I finish, than I will call you.")+ex(1,"AS SOON AS I finish, I will call you.")+ex(1,"NO SOONER had I finished THAN I called you.")},
+
+{n:98,s:5,t:"Quantity with 'Small' — Not Few/Little",b:p("\"Quantity\" must be paired with \"small\" — never \"little\" or \"few\".")
+ +ex(0,"Little quantity of food was wasted.")+ex(1,"A SMALL QUANTITY of food was wasted.")+ex(1,"A SMALL AMOUNT of milk was used.")
+ +tip("QUANTITY = SMALL. Use LITTLE/FEW with the actual noun, not with \"quantity\".")},
+
+{n:99,s:5,t:"As vs So in Negative Comparisons",b:p("Positive: as…as. Negative: not so…as OR not as…as (both correct).")
+ +ex(1,"She is AS TALL AS her mother. (positive)")+ex(1,"She is NOT SO TALL AS her mother. (negative, formal)")+ex(1,"She is NOT AS TALL AS her mother. (negative, common)")
+ +tip("Equal = as…as. Not equal = not as…as.")},
+
+{n:100,s:5,t:"Die of vs Die from",b:p("<b>Die of</b> = disease, old age, emotion (internal causes). <b>Die from</b> = external causes like injury, accident, wound.")
+ +ex(1,"He died OF cancer. (internal)")+ex(1,"She died FROM a gunshot wound. (external)")+ex(1,"He died OF hunger. (internal)")
+ +tip("Die OF disease/emotion. Die FROM external injury.")},
+
+{n:101,s:5,t:"The Verb 'To Be' as Main Verb",b:p("\"To be\" as a main verb is followed by a noun/pronoun or adjective — never directly by an object like action verbs.")
+ +ex(1,"She IS a teacher.")+ex(0,"She is teaches students.")
+ +note("\"Be + past participle\" forms passive voice. \"Be + V+ing\" forms continuous tense.")},
+
+{n:102,s:5,t:"Use of 'Mind' + Gerund",b:p("\"Mind\" is always followed by a Gerund, not an infinitive.")
+ +ex(1,"Do you MIND OPENING the window?")+ex(0,"Do you mind to open the window?")
+ +p("Similarly after look forward to, accustomed to, used to (habitual), object to, devoted to — use gerund.")
+ +ex(1,"I look forward to MEETING you.")+ex(0,"I look forward to meet you.")
+ +tip("\"To\" here is a preposition (not part of infinitive) → use gerund after it!")},
+
+{n:103,s:5,t:"Would Rather / Had Rather",b:p("\"Would rather\" = preference, followed by bare infinitive (V1). \"Would rather X than Y\" — both verbs must match in form.")
+ +ex(1,"I would rather STAY at home than go out.")+ex(0,"I would rather to stay at home.")+ex(1,"She would rather SING than DANCE.")+ex(0,"She would rather sing than to dance.")
+ +tip("Would rather + V1 (no \"to\"). X and Y must be in the same form.")},
+
+{n:104,s:5,t:"It is Time / It is High Time",b:p("\"It is time / it is high time\" is followed by Past Simple (V2), even though it refers to present/future.")
+ +ex(1,"It is time you WENT to bed. (not \"go\")")+ex(1,"It is high time she STOPPED wasting time.")+ex(0,"It is time you go to bed.")
+ +note("\"It is time to + V1\" (infinitive) is also correct: It is time TO GO.")
+ +tip("After \"it is time (that)\" → past tense. After \"it is time to\" → infinitive.")},
+
+{n:105,s:5,t:"Wish + Tense Rules",b:p("Wish + Past Simple = present unreal wish. Wish + Past Perfect = past regret. Wish + would = future desire/complaint.")
+ +ex(1,"I wish I WERE rich. (I am not)")+ex(1,"I wish I HAD STUDIED harder. (regret)")+ex(1,"I wish she WOULD STOP talking.")
+ +note("After \"wish\", use \"were\" for all persons in formal English.")
+ +tip("WISH = opposite of reality. Present reality → past tense in wish.")},
+
+{n:106,s:5,t:"Subjunctive Mood",b:p("Uses V1 (base form) for all persons after suggest, recommend, insist, demand, request, propose, order, require, ask + that.")
+ +ex(1,"The doctor recommended that he TAKE (not \"takes\") more rest.")+ex(1,"She insisted that he BE (not \"is\") present at the meeting.")
+ +tip("After suggest/recommend/insist/demand + that → V1 for ALL subjects!")},
+
+{n:107,s:5,t:"Passive Voice – Formation",b:p("Active: Subject + Verb + Object. Passive: Object + be(correct form) + Past Participle + by + Subject.")
+ +ex(1,"Active: She WRITES a letter. → Passive: A letter IS WRITTEN by her.")+ex(1,"Active: They BUILT this house. → Passive: This house WAS BUILT by them.")
+ +tip("Object becomes subject. Subject goes after \"by\". Main verb becomes past participle.")},
+
+{n:108,s:5,t:"Let Sentences",b:p("After \"let\" as a main verb, the pronoun is in the objective case.")
+ +ex(1,"Let HIM go. (not \"he\")")+ex(1,"Let US begin. (not \"we\")")
+ +p("Passive: \"let + object + V1\" → object + \"be let + V1\" OR \"be allowed to + V1\".")+ex(1,"He was allowed to go. / He was let go.")
+ +tip("After \"let\" → use objective pronoun (him/her/them/us), not subjective.")},
+
+{n:109,s:5,t:"Narration – Direct to Indirect Speech",b:p("Pronouns change per speaker/listener. Time/place words also shift: this→that, now→then, here→there, today→that day, tomorrow→the next day, yesterday→the day before.")
+ +ex(1,"Direct: \"I will come here tomorrow,\" he said.")+ex(1,"Indirect: He said that he would go there THE NEXT DAY.")
+ +tip("Time/place words shift too: today→that day, here→there, now→then.")},
+
+{n:110,s:5,t:"Question Tags",b:p("A question tag uses opposite polarity: positive sentence → negative tag, and vice versa.")
+ +ex(1,"She is coming, ISN'T she?")+ex(1,"He can't swim, CAN he?")+ex(1,"They have left, HAVEN'T they?")+ex(1,"I am right, AREN'T I? (not \"amn't I\")")
+ +tip("Positive sentence → negative tag. Negative sentence → positive tag.")},
+
+{n:111,s:5,t:"Phrasal Verbs – Common Errors",b:p("Some phrasal verbs need their preposition kept — don't drop or replace it.")
+ +ex(1,"Please switch ON the light.")
+ +words("Look after (care for) · Look into (investigate) · Look up (search/improve) · Look forward to (anticipate) · Call off (cancel) · Put off (postpone) · Break down (stop functioning) · Make up (invent/reconcile) · Give up (quit) · Turn down (reject)")
+ +tip("Learn phrasal verbs as complete units — the preposition changes the meaning!")},
+
+{n:112,s:5,t:"Either … Or: Verb Agreement",b:p("With Either…or / Neither…nor, the verb agrees with the nearest subject.")
+ +ex(1,"Either he or his friends ARE coming. (nearest: friends)")+ex(1,"Either his friends or he IS coming. (nearest: he)")+ex(1,"Neither the teacher nor the students WERE present.")
+ +tip("Nearest subject rule: look at the subject just before the verb!")},
+
+{n:113,s:5,t:"Words Confused – Common Pairs",b:p("Study this visual breakdown of critical homonyms and easily confused exam pairings:")
+ +`<div class="table-container" style="margin: 12px 0;"><div class="table-wrapper"><table class="ref-table"><thead><tr><th style="width:25%">Word Pair</th><th style="width:35%">Meanings & Part of Speech</th><th style="width:40%">Distinction Example</th></tr></thead><tbody><tr><td><strong>Affect</strong><br><strong>Effect</strong></td><td><code>Verb</code> (To influence)<br><code>Noun</code> (The outcome/result)</td><td>The policy will <strong>affect</strong> the budget.<br>The positive <strong>effect</strong> was clear.</td></tr><tr><td><strong>Principal</strong><br><strong>Principle</strong></td><td><code>Noun/Adj</code> (Head of school / Main)<br><code>Noun</code> (Fundamental truth/rule)</td><td>Our <strong>principal</strong> reason was structural.<br>He is a man of high <strong>principles</strong>.</td></tr><tr><td><strong>Stationary</strong><br><strong>Stationery</strong></td><td><code>Adj</code> (Not moving/fixed)<br><code>Noun</code> (Writing materials)</td><td>The car remained <strong>stationary</strong>.<br>Buy envelopes from the <strong>stationery</strong> shop.</td></tr></tbody></table></div></div>`
+ +ex(1,"The rain AFFECTED the crops. The EFFECT was devastating.")
+ +tip("AFFECT = Action (verb). EFFECT = End result (noun).")},
+
+{n:114,s:5,t:"Idiomatic Prepositions",b:p("Prepositions are often used idiomatically — meaning can't be guessed from the words alone.")
+ +words("AT stake, AT fault, AT a loss, AT large, AT work, AT ease, AT once · IN doubt, IN time (before deadline), ON time (punctual), IN the end (finally), AT the end (final point)")
+ +ex(1,"He arrived ON time. (exactly punctual)")+ex(1,"IN THE END, we decided to go. (finally)")+ex(1,"AT THE END of the movie, everyone cried. (final point)")
+ +tip("Memorize these fixed phrases — context won't always help!")},
+
+{n:115,s:5,t:"Inversion After Negative Adverbs",b:p("Negative/restrictive adverbs at sentence start invert subject and helping verb.")
+ +words("Never, Rarely, Seldom, Hardly, Scarcely, No sooner, Little, Not only, Only then, Only when")
+ +ex(1,"NEVER HAVE I seen such beauty.")+ex(1,"RARELY DOES she visit us.")+ex(1,"LITTLE DID she know what was about to happen.")
+ +note("Also called \"emphatic inversion\" — used to emphasize the negative adverb.")
+ +tip("Negative adverb at start → helping verb comes before subject!")},
+
+{n:116,s:5,t:"It Is … Who/That (Cleft Sentences)",b:p("Cleft sentences emphasize a part of the sentence using \"it is/was…who/that\". Use \"who\" for people, \"that\" for things.")
+ +ex(1,"IT WAS RAMA who broke the window.")+ex(1,"IT IS MY HARD WORK that got me here.")
+ +note("The verb in the \"it is/was\" part must agree with what follows: \"it is the students who ARE…\"")},
+
+{n:117,s:5,t:"One Another vs Each Other",b:p("<b>Each other</b> = two people/things. <b>One another</b> = three or more.")
+ +ex(1,"The two brothers love EACH OTHER.")+ex(1,"All the students respect ONE ANOTHER.")+ex(0,"The three friends help each other.")+ex(1,"The three friends help ONE ANOTHER.")
+ +tip("2 = Each other. 3+ = One another. (Same as between/among!)")},
+
+{n:118,s:5,t:"Split Infinitive",b:p("Occurs when an adverb is placed between \"to\" and the verb. Acceptable in modern English, but exams prefer avoiding it.")
+ +ex(0,"She decided to immediately leave. (split)")+ex(1,"She decided to leave IMMEDIATELY.")
+ +note("In competitive exams, split infinitives are considered errors — keep \"to\" and the verb together.")},
+
+{n:119,s:5,t:"Miscellaneous Important Rules",b:p("1) \"The + comparative, the + comparative\" = proportional increase:")+ex(1,"THE MORE you read, THE WISER you become.")
+ +p("2) \"Prefer X to Y\":")+ex(1,"I prefer tea TO coffee.")
+ +p("3) \"Different from\" (British English):")+ex(1,"His idea is DIFFERENT FROM mine.")
+ +p("4) \"Superior/inferior/senior/junior to\":")+ex(1,"He is SUPERIOR TO his colleagues.")
+ +tip("Prefer…TO. Superior/inferior…TO. Different…FROM.")},
+
+{n:120,s:5,t:"Summary – Golden Rules to Remember",b:p("The top 10 most frequently tested rules in competitive exams:")
+ +words("1. Subject-verb agreement: singular subject = singular verb.<br>2. Tense consistency: past verb in main → past in subordinate.<br>3. Each/Every → singular verb. Both/Neither → check nearest subject.<br>4. Gerund after prepositions and after enjoy, avoid, finish, mind.<br>5. Inversion after negative adverbs (Never, Hardly, Scarcely, No sooner).<br>6. Comparison of like things (use \"that of\"/\"those of\").<br>7. Parallelism: matching grammatical forms in lists/pairs.<br>8. Articles: A + consonant sound, An + vowel sound.<br>9. Possessive before gerund: his/her/my + V+ing.<br>10. Lest → should. Unless → no \"not\". Although → no \"but\".")
+ +note("Practice these 120 rules with the practice questions in your book.")
+ +tip("Rule + Example + Practice = Mastery! All the best for your exam!")},
+];
+
+let mastered = new Set();
+let currentFilter = 'all';
+
+// Load initial storage settings
+if (localStorage.getItem('grammar_mastered')) {
+  try {
+    mastered = new Set(JSON.parse(localStorage.getItem('grammar_mastered')));
+  } catch(e) { mastered = new Set(); }
+}
+
+const navList = document.getElementById('navList');
+const sectionsEl = document.getElementById('sections');
+
+SECTIONS.forEach((sec, i) => {
+  const a = document.createElement('a');
+  a.href = '#'+sec.id;
+  a.className = 'nav-link';
+  a.innerHTML = `<span>${sec.title}</span><span class="nav-count">${sec.range}</span>`;
+  navList.appendChild(a);
+
+  const block = document.createElement('div');
+  block.className = 'section-block';
+  block.id = sec.id;
+  block.innerHTML = `
+    <div class="section-head">
+      <span class="section-num">${String(i+1).padStart(2,'0')}</span>
+      <span class="section-title">${sec.title}</span>
+      <span class="section-range">${sec.id === 's7' ? 'Cheat Sheet' : 'Rules ' + sec.range}</span>
+    </div>
+    <div class="cards" id="cards-${sec.id}"></div>`;
+  sectionsEl.appendChild(block);
+});
+
+RULES.forEach(r => {
+  const sec = SECTIONS[r.s];
+  const cardsWrap = document.getElementById('cards-'+sec.id);
+  const card = document.createElement('div');
+  card.className = 'card' + (mastered.has(r.n) ? ' mastered-status' : '');
+  card.id = `card-rule-${r.n}`;
+  card.dataset.ruleNum = r.n;
+  card.dataset.search = (r.t + ' ' + r.b).toLowerCase().replace(/<[^>]+>/g,' ');
+  
+  const isDone = mastered.has(r.n);
+  
+  card.innerHTML = `
+    <div class="card-head" onclick="toggleCard(this.parentElement)">
+      <span class="card-tag">Rule ${r.n}</span>
+      <span class="card-title">${r.t}</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      ${r.b}
+      <div class="check-row">
+        <button class="mastered-btn ${isDone?'done':''}" onclick="toggleMastered(event, ${r.n})">
+          ${isDone ? '✓ Mastered!' : '✓ Mark as mastered'}
+        </button>
+      </div>
+    </div>`;
+  cardsWrap.appendChild(card);
+});
+
+const refSectionWrap = document.getElementById('cards-s7');
+const chartCard1 = document.createElement('div');
+chartCard1.className = 'card open';
+chartCard1.id = 'card-ref-speech';
+chartCard1.dataset.search = 'direct indirect speech tense conversion chart present past future changes backshifting report';
+chartCard1.innerHTML = `
+  <div class="card-head" onclick="toggleCard(this.parentElement)">
+    <span class="card-tag">Reference</span>
+    <span class="card-title">Direct → Indirect Speech: Tense Conversion Chart</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="card-body">
+    <p class="rule-text">When converting direct speech to indirect speech, the reporting verb determines the tense shift (backshifting). If the reporting verb is in the past (e.g., <em>said</em>), the tenses are backshifted as follows:</p>
+    
+    <div style="margin-top: 14px;">
+      <h4 style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Present Tenses (Direct)</h4>
+      <div class="table-container">
+        <div class="table-wrapper">
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th style="width: 50%;">Direct Speech</th>
+                <th style="width: 50%;">Indirect Speech</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="ref-badge direct-tag">Present Indefinite</span><br><code>do, does + V1</code></td>
+                <td><span class="ref-badge indirect-tag">Past Indefinite</span><br><code>did or V2</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge direct-tag">Present Continuous</span><br><code>is, am, are + V1+ing</code></td>
+                <td><span class="ref-badge indirect-tag">Past Continuous</span><br><code>was, were + V1+ing</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge direct-tag">Present Perfect</span><br><code>has/have + V3</code></td>
+                <td><span class="ref-badge indirect-tag">Past Perfect</span><br><code>had + V3</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge direct-tag">Present Perfect Continuous</span><br><code>has/have + been + V1+ing</code></td>
+                <td><span class="ref-badge indirect-tag">Past Perfect Continuous</span><br><code>had + been + V1+ing</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 18px;">
+      <h4 style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Past Tenses (Direct)</h4>
+      <div class="table-container">
+        <div class="table-wrapper">
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th style="width: 50%;">Direct Speech</th>
+                <th style="width: 50%;">Indirect Speech</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="ref-badge direct-tag">Past Indefinite</span><br><code>did or V2</code></td>
+                <td><span class="ref-badge indirect-tag">Past Perfect</span><br><code>had + V3</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge direct-tag">Past Continuous</span><br><code>was/were + V1+ing</code></td>
+                <td><span class="ref-badge indirect-tag">Past Perfect Continuous</span><br><code>had been + V1+ing</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge direct-tag">Past Perfect</span><br><code>had + V3</code></td>
+                <td><span class="ref-badge">No change</span><br><code>had + V3</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge direct-tag">Past Perfect Continuous</span><br><code>had been + V1+ing</code></td>
+                <td><span class="ref-badge">No change</span><br><code>had been + V1+ing</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 18px;">
+      <h4 style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Future Tenses (Direct)</h4>
+      <div class="table-container">
+        <div class="table-wrapper">
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th style="width: 50%;">Direct Speech</th>
+                <th style="width: 50%;">Indirect Speech</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="ref-badge direct-tag">Future Indefinite</span><br><code>will + V1</code></td>
+                <td><span class="ref-badge indirect-tag">Conditional</span><br><code>would + V1</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge direct-tag">Future Continuous</span><br><code>will be + V1+ing</code></td>
+                <td><span class="ref-badge indirect-tag">Conditional Continuous</span><br><code>would be + V1+ing</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge direct-tag">Future Perfect</span><br><code>will have + V3</code></td>
+                <td><span class="ref-badge indirect-tag">Conditional Perfect</span><br><code>would have + V3</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge direct-tag">Future Perfect Continuous</span><br><code>will have been + V1+ing</code></td>
+                <td><span class="ref-badge indirect-tag">Conditional Perfect Continuous</span><br><code>would have been + V1+ing</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+refSectionWrap.appendChild(chartCard1);
+
+const chartCard2 = document.createElement('div');
+chartCard2.className = 'card open';
+chartCard2.id = 'card-ref-voice';
+chartCard2.dataset.search = 'active passive voice tense conversion formulas subject object base verb past participle passive conversion grid';
+chartCard2.innerHTML = `
+  <div class="card-head" onclick="toggleCard(this.parentElement)">
+    <span class="card-tag">Reference</span>
+    <span class="card-title">Active → Passive Voice: Tense Conversion Chart</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="card-body">
+    <p class="rule-text">To convert a sentence from Active to Passive Voice, shift the object to the subject position, add the appropriate auxiliary form of <strong>to be</strong>, and use the 3rd form of the verb (V3/Past Participle).</p>
+    
+    <div style="margin-top: 14px;">
+      <h4 style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Present Tenses</h4>
+      <div class="table-container">
+        <div class="table-wrapper">
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th style="width: 30%;">Tense</th>
+                <th style="width: 35%;">Active Voice Formula</th>
+                <th style="width: 35%;">Passive Voice Formula</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="ref-badge active-tag">Present Indefinite</span></td>
+                <td><code>S + V1 + O</code></td>
+                <td><code>O + is/am/are + V3 + by + S</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge active-tag">Present Continuous</span></td>
+                <td><code>S + is/am/are + V1+ing + O</code></td>
+                <td><code>O + is/am/are + being + V3 + by + S</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge active-tag">Present Perfect</span></td>
+                <td><code>S + has/have + V3 + O</code></td>
+                <td><code>O + has/have + been + V3 + by + S</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge active-tag">Present Perfect Continuous</span></td>
+                <td><code>S + has/have + been + V1+ing + O</code></td>
+                <td><em style="font-size: 0.8rem; color: var(--text-muted);">Not normally converted</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 18px;">
+      <h4 style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Past Tenses</h4>
+      <div class="table-container">
+        <div class="table-wrapper">
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th style="width: 30%;">Tense</th>
+                <th style="width: 35%;">Active Voice Formula</th>
+                <th style="width: 35%;">Passive Voice Formula</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="ref-badge passive-tag">Past Indefinite</span></td>
+                <td><code>S + V2 + O</code></td>
+                <td><code>O + was/were + V3 + by + S</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge passive-tag">Past Continuous</span></td>
+                <td><code>S + was/were + V1+ing + O</code></td>
+                <td><code>O + was/were + being + V3 + by + S</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge passive-tag">Past Perfect</span></td>
+                <td><code>S + had + V3 + O</code></td>
+                <td><code>O + had + been + V3 + by + S</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge passive-tag">Past Perfect Continuous</span></td>
+                <td><code>S + had + been + V1+ing + O</code></td>
+                <td><em style="font-size: 0.8rem; color: var(--text-muted);">Not normally converted</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 18px;">
+      <h4 style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 4px;">Future Tenses</h4>
+      <div class="table-container">
+        <div class="table-wrapper">
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th style="width: 30%;">Tense</th>
+                <th style="width: 35%;">Active Voice Formula</th>
+                <th style="width: 35%;">Passive Voice Formula</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="ref-badge active-tag">Future Indefinite</span></td>
+                <td><code>S + will/shall + V1 + O</code></td>
+                <td><code>O + will/shall + be + V3 + by + S</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge active-tag">Future Continuous</span></td>
+                <td><code>S + will/shall + be + V1+ing + O</code></td>
+                <td><em style="font-size: 0.8rem; color: var(--text-muted);">Not normally converted</em></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge active-tag">Future Perfect</span></td>
+                <td><code>S + will/shall + have + V3 + O</code></td>
+                <td><code>O + will/shall + have been + V3 + by + S</code></td>
+              </tr>
+              <tr>
+                <td><span class="ref-badge active-tag">Future Perfect Continuous</span></td>
+                <td><code>S + will/shall + have been + V1+ing + O</code></td>
+                <td><em style="font-size: 0.8rem; color: var(--text-muted);">Not normally converted</em></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>GRID REFERENCE LEGEND:</strong><br>
+      <strong>S</strong> = Subject · <strong>O</strong> = Object · <strong>V1</strong> = base/present verb · <strong>V2</strong> = past form verb · <strong>V3</strong> = past participle form. Continuous and perfect-continuous tenses generally do not have a natural passive form, so they are typically left unconverted or completely rephrased.
+    </div>
+  </div>
+`;
+refSectionWrap.appendChild(chartCard2);
+
+function toggleCard(cardEl) {
+  cardEl.classList.toggle('open');
+}
+
+function toggleAllCards(open) {
+  document.querySelectorAll('.card').forEach(card => {
+    if (card.style.display !== 'none') {
+      if (open) card.classList.add('open');
+      else card.classList.remove('open');
+    }
+  });
+}
+
+function toggleMastered(e, n){
+  e.stopPropagation();
+  const btn = e.currentTarget;
+  const card = document.getElementById(`card-rule-${n}`);
+  
+  if(mastered.has(n)){ 
+    mastered.delete(n); 
+    btn.classList.remove('done'); 
+    btn.textContent='✓ Mark as mastered';
+    card.classList.remove('mastered-status');
+  } else { 
+    mastered.add(n); 
+    btn.classList.add('done'); 
+    btn.textContent='✓ Mastered!'; 
+    card.classList.add('mastered-status');
+  }
+  
+  localStorage.setItem('grammar_mastered', JSON.stringify([...mastered]));
+  updateProgressUI();
+  applyFiltersAndSearch();
+}
+
+function updateProgressUI() {
+  document.getElementById('progressCount').textContent = mastered.size;
+  document.getElementById('progressFill').style.width = (mastered.size / 120 * 100) + '%';
+}
+
+function setFilter(type, btn) {
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = type;
+  applyFiltersAndSearch();
+}
+
+function applyFiltersAndSearch() {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  
+  document.querySelectorAll('.section-block').forEach(block => {
+    let anyVisible = false;
+    block.querySelectorAll('.card').forEach(card => {
+      const numVal = card.dataset.ruleNum;
+      const matchesSearch = !q || card.dataset.search.includes(q);
+      
+      let matchesFilter = true;
+      if (numVal) {
+        const num = parseInt(numVal);
+        if (currentFilter === 'mastered') matchesFilter = mastered.has(num);
+        else if (currentFilter === 'pending') matchesFilter = !mastered.has(num);
+      } else {
+        // Reference cards do not have rule numbers. They show in all filters except for those explicitly filtering dynamic list statuses.
+        matchesFilter = (currentFilter === 'all' || currentFilter === 'pending');
+      }
+      
+      const visible = matchesSearch && matchesFilter;
+      card.style.display = visible ? '' : 'none';
+      
+      if (visible) {
+        anyVisible = true;
+        if(q) card.classList.add('open');
+      }
+    });
+    block.style.display = anyVisible ? '' : 'none';
+  });
+}
+
+// Search interface binding
+document.getElementById('search').addEventListener('input', applyFiltersAndSearch);
+
+// Active navigation target layout tracking
+const navLinks = [...document.querySelectorAll('.nav-link')];
+const obsBlocks = [...document.querySelectorAll('.section-block')];
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = navLinks.find(l => l.getAttribute('href') === '#'+entry.target.id);
+      if(link) link.classList.add('active');
+    }
+  });
+}, {rootMargin: '-10% 0px -75% 0px'});
+obsBlocks.forEach(b => observer.observe(b));
+
+// Initialize interface layout metrics
+updateProgressUI();
+</script>
+</body>
+</html>
