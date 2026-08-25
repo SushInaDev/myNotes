@@ -207,6 +207,64 @@
     min-width:34px;
   }
 
+  /* ============ FLOATING TOC TOGGLE ============ */
+  .toc-fab{
+    position:fixed; right:26px; bottom:26px; z-index:80;
+    width:56px; height:56px; border-radius:50%; border:none; cursor:pointer;
+    background:linear-gradient(160deg, var(--navy), #101a30);
+    box-shadow:0 8px 20px rgba(16,26,48,0.4), 0 0 0 1px rgba(201,150,47,0.4);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .toc-fab:hover{transform:translateY(-2px); box-shadow:0 12px 24px rgba(16,26,48,0.45), 0 0 0 1px var(--brass-bright);}
+  .toc-fab svg{width:22px;height:22px; stroke:var(--parchment-light); fill:none; stroke-width:1.8;}
+  .toc-fab .fab-close{display:none;}
+  body.toc-open .toc-fab .fab-open{display:none;}
+  body.toc-open .toc-fab .fab-close{display:block;}
+
+  .toc-overlay{
+    position:fixed; inset:0; background:rgba(14,18,28,0.45); z-index:70;
+    opacity:0; pointer-events:none; transition:opacity .25s;
+  }
+  body.toc-open .toc-overlay{opacity:1; pointer-events:auto;}
+
+  .toc-drawer{
+    position:fixed; top:0; right:0; height:100%; width:340px; max-width:86vw; z-index:75;
+    background:var(--parchment-card); border-left:1px solid var(--line);
+    box-shadow:-14px 0 40px rgba(16,20,32,0.25);
+    transform:translateX(100%); transition:transform .3s cubic-bezier(.2,.9,.3,1);
+    display:flex; flex-direction:column;
+  }
+  body.toc-open .toc-drawer{transform:translateX(0);}
+  .toc-drawer-head{
+    padding:22px 24px 16px; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .toc-drawer-head h4{
+    font-family:'IBM Plex Mono', monospace; text-transform:uppercase; letter-spacing:.18em;
+    font-size:11.5px; color:var(--brass); margin:0;
+  }
+  .toc-drawer-close{
+    background:none; border:none; cursor:pointer; color:var(--ink-soft); padding:4px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .toc-drawer-close svg{width:18px;height:18px; stroke:currentColor; fill:none; stroke-width:1.8;}
+  .toc-drawer-close:hover{color:var(--oxblood);}
+  .toc-drawer-list{overflow-y:auto; padding:10px 12px 24px; flex:1;}
+  .toc-drawer-list a{
+    display:flex; align-items:baseline; gap:10px; text-decoration:none; color:var(--ink-soft);
+    font-size:14.5px; padding:9px 12px; border-radius:6px; border-left:2px solid transparent;
+    transition:.15s;
+  }
+  .toc-drawer-list a:hover{background:rgba(169,120,31,0.08); color:var(--oxblood);}
+  .toc-drawer-list a.active{
+    background:rgba(169,120,31,0.14); color:var(--oxblood); border-left-color:var(--oxblood);
+    font-weight:600;
+  }
+  .toc-drawer-list a .yr{
+    font-family:'IBM Plex Mono', monospace; color:var(--brass); font-size:11.5px; min-width:32px;
+  }
+
   /* ============ TIMELINE RIBBON ============ */
   .timeline{
     display:flex;
@@ -3228,5 +3286,93 @@
   </footer>
 
 </div>
+
+<!-- ============ FLOATING "ON THIS PAGE" TOGGLE ============ -->
+<button class="toc-fab" id="tocFab" aria-label="Toggle page navigation" aria-expanded="false" aria-controls="tocDrawer">
+  <svg class="fab-open" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+  <svg class="fab-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+</button>
+<div class="toc-overlay" id="tocOverlay"></div>
+<nav class="toc-drawer" id="tocDrawer">
+  <div class="toc-drawer-head">
+    <h4>On this page</h4>
+    <button class="toc-drawer-close" id="tocDrawerClose" aria-label="Close navigation">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="toc-drawer-list" id="tocDrawerList">
+    <a href="#reg1773"><span class="yr">1773</span> Regulating Act</a>
+    <a href="#pitt1784"><span class="yr">1784</span> Pitt's India Act</a>
+    <a href="#charter1793"><span class="yr">1793</span> Charter Act</a>
+    <a href="#committee1812"><span class="yr">1812</span> House of Commons Cmte.</a>
+    <a href="#charter1813"><span class="yr">1813</span> Charter Act</a>
+    <a href="#charter1833"><span class="yr">1833</span> Charter Act</a>
+    <a href="#charter1853"><span class="yr">1853</span> Charter Act</a>
+    <a href="#govt1858"><span class="yr">1858</span> Govt. of India Act</a>
+    <a href="#councils1861"><span class="yr">1861</span> Indian Councils Act</a>
+    <a href="#councils1892"><span class="yr">1892</span> Indian Councils Act</a>
+    <a href="#councils1909"><span class="yr">1909</span> Morley-Minto Reforms</a>
+    <a href="#govt1919"><span class="yr">1919</span> Montagu-Chelmsford</a>
+    <a href="#govt1935"><span class="yr">1935</span> Govt. of India Act</a>
+    <a href="#act1947"><span class="yr">1947</span> Independence Act</a>
+    <a href="#constituent1946"><span class="yr">1946</span> Constituent Assembly</a>
+    <a href="#constfacts"><span class="yr">1950</span> Constitutional Facts</a>
+    <a href="#salientfeatures"><span class="yr">✦</span> Salient Features</a>
+    <a href="#preamble"><span class="yr">1949</span> The Preamble</a>
+    <a href="#parts"><span class="yr">✦</span> Parts of the Constitution</a>
+    <a href="#schedules"><span class="yr">✦</span> The 12 Schedules</a>
+    <a href="#gk"><span class="yr">✦</span> Bonus GK chain</a>
+  </div>
+</nav>
+
+<script>
+(function(){
+  var body = document.body;
+  var fab = document.getElementById('tocFab');
+  var overlay = document.getElementById('tocOverlay');
+  var drawer = document.getElementById('tocDrawer');
+  var closeBtn = document.getElementById('tocDrawerClose');
+  var links = document.querySelectorAll('#tocDrawerList a');
+
+  function openDrawer(){
+    body.classList.add('toc-open');
+    fab.setAttribute('aria-expanded','true');
+  }
+  function closeDrawer(){
+    body.classList.remove('toc-open');
+    fab.setAttribute('aria-expanded','false');
+  }
+  fab.addEventListener('click', function(){
+    body.classList.contains('toc-open') ? closeDrawer() : openDrawer();
+  });
+  overlay.addEventListener('click', closeDrawer);
+  closeBtn.addEventListener('click', closeDrawer);
+  links.forEach(function(a){
+    a.addEventListener('click', function(){ closeDrawer(); });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeDrawer();
+  });
+
+  /* Highlight the section currently in view */
+  var sections = Array.prototype.map.call(links, function(a){
+    return document.getElementById(a.getAttribute('href').slice(1));
+  }).filter(Boolean);
+
+  function onScroll(){
+    var pos = window.scrollY + window.innerHeight * 0.3;
+    var current = sections[0];
+    for(var i=0;i<sections.length;i++){
+      if(sections[i].offsetTop <= pos) current = sections[i];
+    }
+    links.forEach(function(a){
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current.id);
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+</script>
+
 </body>
 </html>
